@@ -22,12 +22,10 @@ button { font-family: inherit; cursor: pointer; }
 
 /* ── SIDEBAR ───────────────────────────────────────── */
 .sb { width: 230px; min-width: 230px; background: var(--sb); display: flex; flex-direction: column; height: 100vh; overflow-y: auto; }
-.sb-logo { padding: 20px 16px; border-bottom: 1px solid rgba(255,255,255,.06); }
-.sb-brand { display: flex; align-items: center; gap: 10px; }
-.sb-icon { width: 34px; height: 34px; background: var(--gold); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; color: var(--g-dark); clip-path: polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%); }
-.sb-name { font-size: 15px; font-weight: 700; color: #F5F0E4; }
-.sb-name span { color: var(--gold-l); }
-.sb-sub { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,240,228,.3); margin-top: 1px; }
+.sb-logo { padding: 22px 18px 18px; border-bottom: 1px solid rgba(255,255,255,.1); }
+.sb-brand-main    { font-size: 22px; font-weight: 800; color: var(--gold-l); letter-spacing: 1.5px; line-height: 1.1; }
+.sb-brand-tagline { font-size: 9.5px; font-weight: 700; color: rgba(245,240,228,.75); letter-spacing: 2.5px; text-transform: uppercase; margin-top: 5px; }
+.sb-brand-peru    { font-size: 11px; color: rgba(245,240,228,.35); margin-top: 6px; }
 .sb-sec { padding: 16px 10px 6px; }
 .sb-lbl { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,240,228,.28); font-weight: 600; padding: 0 8px; margin-bottom: 4px; }
 .ni { display: flex; align-items: center; gap: 9px; padding: 9px 10px; border-radius: 6px; color: rgba(245,240,228,.55); font-size: 12.5px; font-weight: 500; cursor: pointer; transition: all .15s; margin-bottom: 2px; border: none; background: none; width: 100%; text-align: left; }

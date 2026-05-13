@@ -1,21 +1,23 @@
-import * as dashboard from './screens/dashboard.js';
-import * as parcelas  from './screens/parcelas.js';
-import * as creditos  from './screens/creditos.js';
-import * as mercado   from './screens/mercado.js';
-import * as scoring   from './screens/scoring.js';
-import * as clima     from './screens/clima.js';
-import * as vitrina   from './screens/vitrina.js';
+import * as dashboard  from './screens/dashboard.js';
+import * as servicios  from './screens/servicios.js';
+import * as parcelas   from './screens/parcelas.js';
+import * as creditos   from './screens/creditos.js';
+import * as mercado    from './screens/mercado.js';
+import * as scoring    from './screens/scoring.js';
+import * as clima      from './screens/clima.js';
+import * as vitrina    from './screens/vitrina.js';
 
-const SCREENS = { dashboard, parcelas, creditos, mercado, scoring, clima, vitrina };
+const SCREENS = { dashboard, servicios, parcelas, creditos, mercado, scoring, clima, vitrina };
 
 const TITLES = {
-  dashboard: ['Dashboard',       'Bienvenido, Raúl — Campaña Palta Hass 2026 en curso'],
-  parcelas:  ['Mis Parcelas',    '2 parcelas activas · La Libertad'],
-  creditos:  ['Créditos',        'Productos disponibles y simulador de crédito agrícola'],
-  mercado:   ['Mercado',         'Precios en tiempo real y compradores activos'],
-  scoring:   ['Mi Score',        'Scoring Agrícola Farmex AI · 760 / 1000'],
-  clima:     ['Clima & Riesgos', 'La Libertad · Actualizado hace 2 horas'],
-  vitrina:   ['Mi Vitrina',      'Comparte tu perfil verificado con compradores e importadores'],
+  dashboard: ['Mi Finca',              'Buenos días, Raúl — Campaña Palta Hass 2026 en curso'],
+  servicios: ['Nuestros Servicios',    'Quiénes somos y qué ofrecemos en Farmex Capital'],
+  parcelas:  ['Mis Hectáreas',         '2 áreas activas · La Libertad · 32 ha en total'],
+  creditos:  ['Créditos',              'Productos disponibles y simulador de crédito agrícola'],
+  mercado:   ['Mercado',               'Precios en tiempo real y compradores activos'],
+  scoring:   ['Mi Score',              'Scoring Agrícola Farmex AI · 760 / 1000'],
+  clima:     ['Clima & Riesgos',       'La Libertad · Actualizado hace 2 horas'],
+  vitrina:   ['Mi Vitrina',            'Comparte tu perfil verificado con compradores e importadores'],
 };
 
 /* Mount all screens as empty containers on startup */

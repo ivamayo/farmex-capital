@@ -19,7 +19,7 @@ export const html = `
       <div class="vit-ctrl-title">⚙️ Qué mostrar en tu vitrina</div>
       <div class="toggle-row"><span class="toggle-lbl">Score Farmex verificado</span><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
       <div class="toggle-row"><span class="toggle-lbl">Certificaciones</span><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
-      <div class="toggle-row"><span class="toggle-lbl">Cultivos y hectáreas</span><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+      <div class="toggle-row"><span class="toggle-lbl">Hectáreas y cultivos</span><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
       <div class="toggle-row"><span class="toggle-lbl">Historial de producción</span><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
       <div class="toggle-row"><span class="toggle-lbl">Oferta disponible</span><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
       <div class="toggle-row"><span class="toggle-lbl">Datos de contacto</span><label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label></div>
@@ -34,19 +34,25 @@ export const html = `
       </div>
     </div>
   </div>
+
+  <!-- Vista pública -->
   <div>
     <div style="font-size:11px;font-weight:600;color:var(--txt-m);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:8px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--ok);display:inline-block;"></span>Vista previa · Así ven tu perfil los compradores</div>
     <div class="pub-profile">
-      <div class="pub-header">
+      <div class="pub-header" style="padding-bottom:90px;">
         <div class="pub-header-bg"></div>
+        <!-- Foto real de finca de palta -->
+        <div style="position:absolute;inset:0;overflow:hidden;border-radius:0;">
+          <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=900&q=80" alt="Finca palta" style="width:100%;height:100%;object-fit:cover;opacity:.25;">
+        </div>
         <div style="position:relative;z-index:1;">
           <div class="pub-badge-farmex">✓ Farmex Verified Producer</div>
-          <div class="pub-farm-name">Finca García · Palta Hass Premium</div>
-          <div class="pub-farm-sub">Productor certificado · Costa del Perú</div>
+          <div class="pub-farm-name">Raúl García Mendoza</div>
+          <div class="pub-farm-sub">Productor de Palta Hass certificado · Costa del Perú</div>
           <div class="pub-farm-meta">
-            <div class="pub-meta-item">📍 La Libertad, Perú</div>
+            <div class="pub-meta-item">📍 Virú, La Libertad</div>
             <div class="pub-meta-item">🌿 32 hectáreas propias</div>
-            <div class="pub-meta-item">📦 Exportador directo</div>
+            <div class="pub-meta-item">📦 Exportador directo · 5 campañas</div>
           </div>
         </div>
         <div class="pub-score-float">
@@ -54,6 +60,7 @@ export const html = `
           <div><div class="pub-score-lbl">Score Farmex</div><div class="pub-score-num">760</div><div class="pub-score-cat">Muy Bueno · Top 15%</div></div>
         </div>
       </div>
+
       <div class="pub-body">
         <div class="pub-certs">
           <span class="cert-tag">✓ Global G.A.P.</span>
@@ -62,18 +69,39 @@ export const html = `
           <span class="cert-tag">✓ Riego tecnificado</span>
           <span class="cert-tag" style="background:#E8F4FD;color:var(--info);border-color:rgba(41,128,185,.2);">📡 Monitoreo satelital activo</span>
         </div>
-        <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:10px;">Cultivos activos</div>
+
+        <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:10px;">🌱 Mis hectáreas activas</div>
         <div class="pub-crops-grid">
-          <div class="pub-crop"><div class="pub-crop-name">🥑 Palta Hass</div><div class="pub-crop-ha">28 ha · Campaña 2026 en curso</div><div class="pub-crop-stats"><div><div class="pcs-v">~112 TM</div><div class="pcs-l">Cosecha proyectada</div></div><div><div class="pcs-v">Ago–Oct</div><div class="pcs-l">Ventana de embarque</div></div><div><div class="pcs-v">Cal. 12–18</div><div class="pcs-l">Calibre disponible</div></div><div><div class="pcs-v">FOB Paita</div><div class="pcs-l">Puerto de salida</div></div></div></div>
-          <div class="pub-crop" style="border-left-color:var(--info);"><div class="pub-crop-name">🫐 Arándano</div><div class="pub-crop-ha">4 ha · Nueva plantación 2026</div><div class="pub-crop-stats"><div><div class="pcs-v">~12 TM</div><div class="pcs-l">Primera cosecha</div></div><div><div class="pcs-v">Sep–Nov</div><div class="pcs-l">Ventana de embarque</div></div><div><div class="pcs-v">14–18mm</div><div class="pcs-l">Calibre objetivo</div></div><div><div class="pcs-v">FOB Lima</div><div class="pcs-l">Puerto de salida</div></div></div></div>
+          <div class="pub-crop">
+            <div class="pub-crop-name">🥑 Palta Hass</div>
+            <div class="pub-crop-ha">28 ha · Campaña 2026 en curso</div>
+            <div class="pub-crop-stats">
+              <div><div class="pcs-v">~112 TM</div><div class="pcs-l">Cosecha proyectada</div></div>
+              <div><div class="pcs-v">Ago–Oct</div><div class="pcs-l">Ventana embarque</div></div>
+              <div><div class="pcs-v">Cal. 12–18</div><div class="pcs-l">Calibre</div></div>
+              <div><div class="pcs-v">FOB Paita</div><div class="pcs-l">Puerto salida</div></div>
+            </div>
+          </div>
+          <div class="pub-crop" style="border-left-color:var(--info);">
+            <div class="pub-crop-name">🫐 Arándano</div>
+            <div class="pub-crop-ha">4 ha · Nueva plantación 2026</div>
+            <div class="pub-crop-stats">
+              <div><div class="pcs-v">~12 TM</div><div class="pcs-l">Primera cosecha</div></div>
+              <div><div class="pcs-v">Sep–Nov</div><div class="pcs-l">Ventana embarque</div></div>
+              <div><div class="pcs-v">14–18mm</div><div class="pcs-l">Calibre</div></div>
+              <div><div class="pcs-v">FOB Lima</div><div class="pcs-l">Puerto salida</div></div>
+            </div>
+          </div>
         </div>
+
         <div class="pub-offer">
           <div class="pub-offer-title">📋 Oferta disponible · Campaña 2026</div>
           <div class="offer-item"><div><div class="offer-prod">Palta Hass Cal. 14 · Export Grade</div><div class="offer-vol">Disponible: 60–80 TM · Ago 2026</div></div><div class="offer-price">Consultar</div></div>
           <div class="offer-item"><div><div class="offer-prod">Palta Hass Cal. 16–18 · Supermercados</div><div class="offer-vol">Disponible: 25–35 TM · Sep 2026</div></div><div class="offer-price">Consultar</div></div>
           <div class="offer-item"><div><div class="offer-prod">Arándano Premium · Primera cosecha</div><div class="offer-vol">Disponible: 8–12 TM · Oct 2026</div></div><div class="offer-price">Consultar</div></div>
         </div>
-        <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:10px;">Historial de producción</div>
+
+        <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:10px;">📈 Historial de producción</div>
         <div class="pub-history" style="margin-bottom:20px;">
           <div class="hist-item"><span class="hist-yr">2022</span><div class="hist-bar-wrap"><div class="hist-bar" style="width:60%"></div></div><span class="hist-tm">68 TM</span></div>
           <div class="hist-item"><span class="hist-yr">2023</span><div class="hist-bar-wrap"><div class="hist-bar" style="width:75%"></div></div><span class="hist-tm">85 TM</span></div>
