@@ -3,1248 +3,545 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farmex Capital — AgriFintech Integrada | Perú</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Farmex Capital · Portal del Productor</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --verde-bosque: #0F3022;
-  --verde-campo:  #1E5C3A;
-  --verde-hoja:   #3A8B57;
-  --verde-claro:  #6BAE7F;
-  --dorado:       #C8961E;
-  --dorado-claro: #E8B84B;
-  --dorado-pale:  #F5DFA0;
-  --crema:        #F5F0E4;
-  --arena:        #EAE0CC;
-  --blanco:       #FAFAF7;
-  --negro:        #0A1A0E;
-  --gris-suave:   #8A9E8E;
-  --gris-dark:    #3D4D40;
-  --rojo:         #C0392B;
-  --font-title:   'Fraunces', Georgia, serif;
-  --font-body:    'DM Sans', system-ui, sans-serif;
+  --sb: #0D2818; --sb-hover: #183824; --sb-active: #1E5C3A;
+  --gold: #C8961E; --gold-l: #E8B84B; --gold-pale: #FDF3DC;
+  --g-dark: #0F3022; --g-mid: #2D7A4F; --g-light: #5BAF78;
+  --bg: #EEF2EE; --card: #FFFFFF; --border: #E0E8E0;
+  --txt: #1A2E1E; --txt-s: #607060; --txt-m: #9AAA9A;
+  --ok: #27AE60; --warn: #F39C12; --err: #E74C3C; --info: #2980B9;
+  --sh: 0 1px 3px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.05);
+  --sh-l: 0 4px 24px rgba(0,0,0,.10);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:var(--font-body);background:var(--blanco);color:var(--negro);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
-img{display:block;max-width:100%;}
-a{text-decoration:none;}
-button{cursor:pointer;font-family:var(--font-body);}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);display:flex;height:100vh;overflow:hidden;}
+button{font-family:inherit;cursor:pointer;}
 
-/* ── NAVBAR ── */
-#navbar{
-  position:fixed;top:0;left:0;right:0;z-index:300;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 48px;height:68px;
-  background:rgba(10,26,14,0.97);backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(200,150,30,.2);
-  transition:box-shadow .3s;
-}
-#navbar.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.5);}
-.nav-brand{display:flex;align-items:center;gap:12px;}
-.nav-logo{width:36px;height:36px;background:var(--dorado);display:flex;align-items:center;justify-content:center;font-family:var(--font-title);font-size:16px;font-weight:900;color:var(--verde-bosque);clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
-.nav-name{font-family:var(--font-title);font-size:18px;font-weight:600;color:var(--crema);}
-.nav-name span{color:var(--dorado-claro);}
-.nav-links{display:flex;gap:28px;list-style:none;}
-.nav-links a{color:rgba(245,240,228,.6);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .2s;}
-.nav-links a:hover{color:var(--dorado-claro);}
-.nav-cta{background:var(--dorado);color:var(--verde-bosque);padding:10px 22px;border:none;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);transition:background .2s,transform .15s;}
-.nav-cta:hover{background:var(--dorado-claro);transform:translateY(-1px);}
-.nav-app-btn{background:var(--verde-hoja);color:#fff;padding:10px 22px;border:none;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-left:8px;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);transition:background .2s;}
-.nav-app-btn:hover{background:var(--verde-claro);}
+/* SIDEBAR */
+.sb{width:230px;min-width:230px;background:var(--sb);display:flex;flex-direction:column;height:100vh;overflow-y:auto;}
+.sb-logo{padding:20px 16px;border-bottom:1px solid rgba(255,255,255,.06);}
+.sb-brand{display:flex;align-items:center;gap:10px;}
+.sb-icon{width:34px;height:34px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:var(--g-dark);clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
+.sb-name{font-size:15px;font-weight:700;color:#F5F0E4;}.sb-name span{color:var(--gold-l);}
+.sb-sub{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,228,.3);margin-top:1px;}
+.sb-sec{padding:16px 10px 6px;}
+.sb-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,228,.28);font-weight:600;padding:0 8px;margin-bottom:4px;}
+.ni{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:6px;color:rgba(245,240,228,.55);font-size:12.5px;font-weight:500;cursor:pointer;transition:all .15s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;}
+.ni:hover{background:var(--sb-hover);color:rgba(245,240,228,.9);}
+.ni.active{background:var(--sb-active);color:#F5F0E4;border-left:3px solid var(--gold);padding-left:7px;}
+.ni-ico{font-size:15px;width:18px;text-align:center;flex-shrink:0;}
+.ni-badge{margin-left:auto;background:var(--gold);color:var(--g-dark);font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;}
+.ni-badge.red{background:var(--err);color:#fff;}
+.sb-bot{margin-top:auto;padding:14px 10px;border-top:1px solid rgba(255,255,255,.06);}
+.uc{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:6px;cursor:pointer;transition:background .15s;}
+.uc:hover{background:var(--sb-hover);}
+.uc-av{width:32px;height:32px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--g-dark);flex-shrink:0;}
+.uc-name{font-size:12px;font-weight:600;color:#F5F0E4;}
+.uc-role{font-size:10px;color:rgba(245,240,228,.35);}
 
-/* ── HERO ── */
-#hero{
-  position:relative;min-height:100vh;display:flex;flex-direction:column;
-  justify-content:center;padding:120px 56px 80px;
-}
-.hero-bg{
-  position:absolute;inset:0;
-  background:linear-gradient(150deg,rgba(10,26,14,.95) 0%,rgba(15,48,34,.82) 50%,rgba(30,92,58,.90) 100%),
-    url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1800&q=80') center/cover no-repeat;
-}
-.hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(200,150,30,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(200,150,30,.03) 1px,transparent 1px);background-size:72px 72px;}
-.hero-inner{position:relative;z-index:2;max-width:780px;}
-.hero-tag{display:inline-flex;align-items:center;gap:10px;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--dorado-claro);font-weight:700;border:1px solid rgba(200,150,30,.3);padding:7px 18px;margin-bottom:30px;animation:fadeUp .7s ease both;}
-.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--verde-claro);animation:pulse 2.2s ease-in-out infinite;}
-.hero-h1{font-family:var(--font-title);font-size:clamp(38px,5.5vw,76px);font-weight:900;line-height:1.05;color:var(--crema);animation:fadeUp .85s .06s ease both;}
-.hero-h1 em{color:var(--dorado-claro);font-style:italic;}
-.hero-h1 .line2{font-weight:300;font-style:italic;color:var(--verde-claro);display:block;}
-.hero-sub{font-size:16px;font-weight:300;color:rgba(245,240,228,.72);max-width:540px;line-height:1.8;margin:22px 0 36px;animation:fadeUp .95s .18s ease both;}
-.hero-chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:42px;animation:fadeUp 1s .24s ease both;}
-.chip{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.06);border:1px solid rgba(200,150,30,.22);padding:7px 14px;font-size:11px;color:rgba(245,240,228,.8);font-weight:500;}
-.chip-dot{width:5px;height:5px;border-radius:50%;background:var(--dorado);}
-.hero-btns{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp 1.05s .30s ease both;}
-.btn-primary{background:var(--dorado);color:var(--verde-bosque);padding:17px 42px;border:none;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:background .2s,transform .15s,box-shadow .2s;display:inline-block;}
-.btn-primary:hover{background:var(--dorado-claro);transform:translateY(-2px);box-shadow:0 12px 32px rgba(200,150,30,.35);color:var(--verde-bosque);}
-.btn-ghost{background:transparent;color:var(--crema);padding:16px 38px;border:1.5px solid rgba(245,240,228,.28);font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;transition:border-color .2s,color .2s;display:inline-block;}
-.btn-ghost:hover{border-color:var(--dorado);color:var(--dorado-claro);}
-.hero-quote{position:absolute;bottom:48px;right:56px;background:rgba(10,26,14,.85);border-left:3px solid var(--dorado);padding:16px 22px;max-width:380px;animation:fadeUp 1.1s .4s ease both;}
-.hero-quote p{font-family:var(--font-title);font-size:14px;font-style:italic;color:var(--crema);line-height:1.6;}
-.hero-quote cite{font-size:10px;letter-spacing:2px;color:var(--dorado);text-transform:uppercase;display:block;margin-top:8px;}
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.topbar{background:var(--card);border-bottom:1px solid var(--border);padding:0 26px;height:58px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.tb-h1{font-size:17px;font-weight:700;color:var(--txt);}
+.tb-sub{font-size:11px;color:var(--txt-m);margin-top:1px;}
+.tb-r{display:flex;align-items:center;gap:10px;}
+.tb-date{font-size:11.5px;color:var(--txt-m);background:var(--bg);padding:5px 12px;border-radius:6px;}
+.tb-bell{width:34px;height:34px;border-radius:7px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;font-size:15px;}
+.bell-dot{position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:var(--err);border:2px solid white;}
 
-/* ── STATS ── */
-.stats-bar{background:var(--verde-bosque);border-bottom:3px solid var(--dorado);display:flex;justify-content:center;}
-.stat-item{flex:1;max-width:220px;padding:26px 14px;text-align:center;border-right:1px solid rgba(107,174,127,.1);transition:background .3s;}
-.stat-item:last-child{border-right:none;}
-.stat-item:hover{background:rgba(200,150,30,.06);}
-.stat-num{font-family:var(--font-title);font-size:30px;font-weight:600;color:var(--dorado-claro);line-height:1;display:block;}
-.stat-lbl{font-size:9px;letter-spacing:2px;color:var(--gris-suave);text-transform:uppercase;margin-top:6px;display:block;}
+.content{flex:1;overflow-y:auto;padding:22px 26px;}
+.screen{display:none;}.screen.active{display:block;}
 
-/* ── SECTIONS ── */
-section{padding:80px 56px;}
-.section-tag{font-size:10px;letter-spacing:4px;color:var(--verde-hoja);text-transform:uppercase;font-weight:700;margin-bottom:14px;display:block;}
-.section-tag.light{color:var(--dorado);}
-.section-h2{font-family:var(--font-title);font-size:clamp(26px,3.5vw,46px);font-weight:600;color:var(--verde-bosque);margin-bottom:14px;line-height:1.15;}
-.section-h2.light{color:var(--crema);}
-.section-h2 em{color:var(--dorado);font-style:italic;}
-.section-sub{font-size:15px;color:var(--gris-suave);font-weight:300;max-width:560px;line-height:1.78;}
-.text-center{text-align:center;}
-.section-sub.center{margin:0 auto;text-align:center;}
-.section-sub.light{color:rgba(245,240,228,.55);}
+/* CARDS */
+.card{background:var(--card);border-radius:10px;box-shadow:var(--sh);padding:18px;}
+.ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.ct{font-size:13px;font-weight:600;color:var(--txt);}
+.cs{font-size:11px;color:var(--txt-m);margin-top:2px;}
+.badge{font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;}
+.bg{background:#E8F8EE;color:var(--ok);}.by{background:#FDF3DC;color:var(--gold);}
+.bb{background:#E8F4FD;color:var(--info);}.br{background:#FDEEEE;color:var(--err);}
 
-/* ── PROBLEMAS ── */
-#problemas{background:var(--crema);}
-.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:48px;}
-.prob-card{background:#fff;border-top:4px solid var(--dorado);padding:36px 28px;transition:transform .2s,box-shadow .2s;}
-.prob-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.08);}
-.prob-num{font-family:var(--font-title);font-size:52px;font-weight:900;color:var(--dorado-pale);line-height:1;margin-bottom:16px;}
-.prob-title{font-family:var(--font-title);font-size:20px;font-weight:600;color:var(--verde-bosque);margin-bottom:12px;}
-.prob-list{list-style:none;}
-.prob-list li{font-size:13px;color:var(--gris-dark);padding:5px 0;border-bottom:1px solid var(--arena);display:flex;gap:8px;align-items:flex-start;}
-.prob-list li::before{content:'→';color:var(--dorado);flex-shrink:0;font-weight:700;}
+/* KPIs */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;}
+.kpi{background:var(--card);border-radius:10px;box-shadow:var(--sh);padding:18px;border-left:4px solid transparent;transition:transform .15s,box-shadow .15s;}
+.kpi:hover{transform:translateY(-2px);box-shadow:var(--sh-l);}
+.kpi.gold{border-left-color:var(--gold);}.kpi.green{border-left-color:var(--g-mid);}
+.kpi.blue{border-left-color:var(--info);}.kpi.orange{border-left-color:var(--warn);}
+.kpi-top{display:flex;align-items:center;justify-content:space-between;}
+.kpi-lbl{font-size:10.5px;font-weight:500;color:var(--txt-m);text-transform:uppercase;letter-spacing:.4px;}
+.kpi-ico{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.kpi-ico.gold{background:#FDF3DC;}.kpi-ico.green{background:#E8F8EE;}
+.kpi-ico.blue{background:#E8F4FD;}.kpi-ico.orange{background:#FEF9E7;}
+.kpi-val{font-size:25px;font-weight:700;color:var(--txt);line-height:1;margin:8px 0 4px;}
+.kpi-ch{font-size:11px;font-weight:500;}
+.kpi-ch.up{color:var(--ok);}.kpi-ch.dn{color:var(--err);}.kpi-ch.neu{color:var(--txt-m);}
 
-/* ── SOLUCIÓN ── */
-#solucion{background:var(--verde-bosque);}
-.sol-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:48px;align-items:center;}
-.sol-quote-box{border-left:4px solid var(--dorado);padding:28px 32px;background:rgba(200,150,30,.06);}
-.sol-quote-box blockquote{font-family:var(--font-title);font-size:22px;font-style:italic;color:var(--crema);line-height:1.5;}
-.sol-quote-box cite{font-size:10px;letter-spacing:2px;color:var(--dorado);text-transform:uppercase;margin-top:14px;display:block;}
-.sol-features{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.sol-feat{background:rgba(255,255,255,.05);border:1px solid rgba(200,150,30,.18);padding:18px;transition:border-color .2s;}
-.sol-feat:hover{border-color:rgba(200,150,30,.4);}
-.sol-feat-icon{font-size:24px;margin-bottom:8px;}
-.sol-feat-name{font-size:13px;font-weight:600;color:var(--dorado-claro);margin-bottom:4px;}
-.sol-feat-desc{font-size:11.5px;color:rgba(245,240,228,.5);line-height:1.5;}
+/* LAYOUTS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+.g60{display:grid;grid-template-columns:1.5fr 1fr;gap:14px;margin-bottom:18px;}
+.ch-wrap{position:relative;height:190px;}
 
-/* ── PRODUCTOS ── */
-#productos{background:var(--blanco);}
-.prod-header{text-align:center;margin-bottom:52px;}
-.cultivo-tabs{display:flex;max-width:400px;margin:0 auto 48px;border:1px solid rgba(58,139,87,.25);}
-.c-tab{flex:1;padding:14px;border:none;background:transparent;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gris-suave);border-right:1px solid rgba(58,139,87,.25);cursor:pointer;transition:background .2s,color .2s;}
-.c-tab:last-child{border-right:none;}
-.c-tab.active{background:var(--verde-bosque);color:var(--dorado-claro);}
-.c-tab:hover:not(.active){background:rgba(58,139,87,.06);color:var(--verde-bosque);}
-.prod-panel{display:none;}
-.prod-panel.active{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.prod-card{background:var(--crema);border:1px solid var(--arena);padding:28px 24px;transition:transform .2s,box-shadow .2s,border-color .2s;cursor:pointer;}
-.prod-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.08);border-color:var(--dorado);}
-.prod-stage{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--verde-hoja);font-weight:700;margin-bottom:10px;}
-.prod-name{font-family:var(--font-title);font-size:19px;font-weight:600;color:var(--verde-bosque);margin-bottom:8px;}
-.prod-desc{font-size:12.5px;color:var(--gris-dark);line-height:1.65;margin-bottom:14px;}
-.prod-monto{font-size:12px;color:var(--dorado);font-weight:700;border-top:1px solid var(--arena);padding-top:12px;}
-.prod-plazo{font-size:11px;color:var(--gris-suave);}
+/* CYCLE */
+.cyc-track{display:flex;gap:5px;margin-bottom:8px;}
+.cyc-ph{flex:1;height:9px;border-radius:4px;background:var(--bg);}
+.cyc-ph.done{background:var(--g-mid);}.cyc-ph.active{background:var(--gold);animation:pulse 1.8s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.65;}}
+.cyc-lbls{display:flex;justify-content:space-between;font-size:9px;color:var(--txt-m);}
+.cyc-info{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;}
+.ci-box{background:var(--bg);padding:9px 11px;border-radius:6px;}
+.ci-val{font-size:13px;font-weight:700;color:var(--txt);}
+.ci-lbl{font-size:10px;color:var(--txt-m);margin-top:1px;}
 
-/* ── APP DEMO ── */
-#app-demo{background:var(--negro);padding:80px 0;}
-.app-demo-inner{max-width:1100px;margin:0 auto;padding:0 56px;}
-.app-demo-header{text-align:center;margin-bottom:52px;}
-.app-frame{background:#1a2a1e;border:1px solid rgba(200,150,30,.2);border-radius:4px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.6);}
-.app-topbar{background:rgba(15,48,34,.95);border-bottom:1px solid rgba(200,150,30,.15);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;}
-.app-topbar-brand{font-family:var(--font-title);font-size:16px;font-weight:600;color:var(--crema);}
-.app-topbar-brand span{color:var(--dorado-claro);}
-.app-topbar-user{display:flex;align-items:center;gap:12px;}
-.app-user-name{font-size:12px;color:rgba(245,240,228,.7);}
-.app-user-avatar{width:32px;height:32px;border-radius:50%;background:var(--dorado);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--verde-bosque);}
-.app-nav{background:var(--verde-bosque);border-bottom:1px solid rgba(200,150,30,.12);padding:0 24px;display:flex;gap:0;}
-.app-nav-btn{padding:14px 18px;border:none;background:transparent;font-size:11px;color:rgba(245,240,228,.5);letter-spacing:1px;text-transform:uppercase;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;}
-.app-nav-btn.active{color:var(--dorado-claro);border-bottom-color:var(--dorado);}
-.app-nav-btn:hover:not(.active){color:rgba(245,240,228,.85);}
-.app-content{padding:24px;min-height:420px;}
-.app-screen{display:none;}
-.app-screen.active{display:block;}
+/* ALERTS */
+.al-list{display:flex;flex-direction:column;gap:8px;}
+.al{display:flex;gap:10px;padding:10px;border-radius:7px;background:var(--bg);border-left:3px solid transparent;}
+.al.warn{border-left-color:var(--warn);}.al.ok{border-left-color:var(--ok);}
+.al.err{border-left-color:var(--err);}.al.inf{border-left-color:var(--info);}
+.al-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.al-dot.warn{background:var(--warn);}.al-dot.ok{background:var(--ok);}
+.al-dot.err{background:var(--err);}.al-dot.inf{background:var(--info);}
+.al-txt{font-size:12px;color:var(--txt);font-weight:500;line-height:1.45;}
+.al-t{font-size:10px;color:var(--txt-m);margin-top:2px;}
 
-/* Dashboard screen */
-.dash-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
-.kpi-card{background:rgba(30,92,58,.3);border:1px solid rgba(200,150,30,.15);padding:18px;text-align:center;}
-.kpi-val{font-family:var(--font-title);font-size:22px;font-weight:600;color:var(--dorado-claro);}
-.kpi-lbl{font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(245,240,228,.5);margin-top:4px;}
-.dash-main{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;}
-.dash-panel{background:rgba(15,48,34,.6);border:1px solid rgba(200,150,30,.12);padding:18px;}
-.dash-panel-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--dorado);font-weight:700;margin-bottom:16px;}
-.cycle-bar{display:flex;gap:4px;margin-bottom:8px;}
-.cycle-step{flex:1;height:8px;background:rgba(107,174,127,.2);border-radius:2px;transition:background .3s;}
-.cycle-step.done{background:var(--dorado);}
-.cycle-step.active{background:var(--verde-claro);animation:pulse 1.5s ease-in-out infinite;}
-.cycle-label{display:flex;justify-content:space-between;font-size:9px;color:rgba(245,240,228,.4);margin-bottom:16px;}
-.alert-item{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);}
-.alert-item:last-child{border-bottom:none;}
-.alert-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px;}
-.alert-dot.warning{background:var(--dorado);}
-.alert-dot.ok{background:var(--verde-claro);}
-.alert-text{font-size:12px;color:rgba(245,240,228,.75);line-height:1.5;}
-.alert-time{font-size:10px;color:rgba(245,240,228,.35);}
+/* PRICE CARDS */
+.px-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.px{background:var(--bg);border-radius:7px;padding:12px;}
+.px-crop{font-size:10.5px;font-weight:600;color:var(--txt-m);text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px;}
+.px-val{font-size:20px;font-weight:700;color:var(--txt);}
+.px-unit{font-size:11px;color:var(--txt-m);}
+.px-ch{font-size:11px;font-weight:600;margin-top:3px;}
+.px-ch.up{color:var(--ok);}.px-ch.dn{color:var(--err);}
 
-/* Crédito screen */
-.cred-form{max-width:600px;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
-.form-group{display:flex;flex-direction:column;gap:6px;}
-.form-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dorado);font-weight:700;}
-.form-select,.form-input{background:rgba(15,48,34,.8);border:1px solid rgba(200,150,30,.25);color:var(--crema);padding:11px 14px;font-size:13px;font-family:var(--font-body);outline:none;width:100%;}
-.form-select:focus,.form-input:focus{border-color:var(--dorado);}
-.form-select option{background:#0F3022;}
-.calc-result{background:rgba(200,150,30,.08);border:1px solid rgba(200,150,30,.3);padding:20px;margin-top:16px;}
-.calc-result-num{font-family:var(--font-title);font-size:36px;font-weight:600;color:var(--dorado-claro);}
-.calc-result-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,228,.5);margin-top:4px;}
-.calc-details{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;}
-.calc-det-item{text-align:center;}
-.calc-det-val{font-size:15px;font-weight:600;color:var(--verde-claro);}
-.calc-det-lbl{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:rgba(245,240,228,.4);margin-top:3px;}
-.btn-app{background:var(--dorado);color:var(--verde-bosque);padding:14px 28px;border:none;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);margin-top:16px;transition:background .2s;}
-.btn-app:hover{background:var(--dorado-claro);}
+/* CREDITS */
+.cr-item{display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg);border-radius:7px;margin-bottom:8px;}
+.cr-ico{width:38px;height:38px;border-radius:9px;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.cr-info{flex:1;}
+.cr-name{font-size:13px;font-weight:600;color:var(--txt);}
+.cr-det{font-size:11px;color:var(--txt-m);margin-top:1px;}
+.cr-bar{margin-top:5px;height:4px;background:rgba(0,0,0,.06);border-radius:2px;overflow:hidden;}
+.cr-fill{height:100%;border-radius:2px;background:var(--gold);}
+.cr-amt{text-align:right;}
+.cr-v{font-size:13px;font-weight:700;color:var(--txt);}
+.cr-s{font-size:10px;color:var(--txt-m);}
 
-/* Marketplace screen */
-.market-filters{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
-.mfilter{background:rgba(30,92,58,.3);border:1px solid rgba(200,150,30,.2);padding:7px 16px;font-size:10.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(245,240,228,.6);cursor:pointer;transition:background .2s,color .2s;}
-.mfilter.active,.mfilter:hover{background:rgba(200,150,30,.15);color:var(--dorado-claro);border-color:rgba(200,150,30,.4);}
-.market-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.market-card{background:rgba(15,48,34,.7);border:1px solid rgba(200,150,30,.12);padding:18px;transition:border-color .2s,transform .2s;}
-.market-card:hover{border-color:rgba(200,150,30,.35);transform:translateY(-2px);}
-.mcard-type{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--verde-claro);font-weight:700;margin-bottom:6px;}
-.mcard-title{font-family:var(--font-title);font-size:15px;font-weight:600;color:var(--crema);margin-bottom:6px;}
-.mcard-price{font-size:18px;font-weight:700;color:var(--dorado-claro);margin-bottom:6px;}
-.mcard-price span{font-size:11px;font-weight:400;color:rgba(245,240,228,.4);}
-.mcard-info{font-size:11px;color:rgba(245,240,228,.5);line-height:1.6;}
-.mcard-tag{display:inline-block;font-size:9px;letter-spacing:1px;text-transform:uppercase;background:rgba(107,174,127,.15);color:var(--verde-claro);padding:3px 9px;margin-top:10px;}
-.btn-app-sm{background:var(--dorado);color:var(--verde-bosque);padding:9px 18px;border:none;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;width:100%;margin-top:12px;transition:background .2s;}
-.btn-app-sm:hover{background:var(--dorado-claro);}
+/* QUICK ACTIONS */
+.act-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.act{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;transition:all .15s;text-align:center;}
+.act:hover{border-color:var(--gold);background:var(--gold-pale);transform:translateY(-2px);box-shadow:var(--sh);}
+.act-ico{font-size:22px;}
+.act-lbl{font-size:11px;font-weight:600;color:var(--txt);line-height:1.3;}
 
-/* Scoring screen */
-.score-layout{display:grid;grid-template-columns:1fr 1.6fr;gap:20px;}
-.score-circle-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(15,48,34,.6);border:1px solid rgba(200,150,30,.12);padding:28px;}
-.score-circle{position:relative;width:140px;height:140px;margin-bottom:16px;}
-.score-circle svg{transform:rotate(-90deg);}
-.score-circle-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.score-num{font-family:var(--font-title);font-size:36px;font-weight:600;color:var(--dorado-claro);}
-.score-max{font-size:11px;color:rgba(245,240,228,.4);}
-.score-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--verde-claro);font-weight:700;}
-.score-factors{background:rgba(15,48,34,.6);border:1px solid rgba(200,150,30,.12);padding:18px;}
-.score-factor{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);}
-.score-factor:last-child{border-bottom:none;}
-.sf-name{font-size:12px;color:rgba(245,240,228,.7);width:160px;flex-shrink:0;}
-.sf-bar{flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;}
-.sf-fill{height:100%;border-radius:3px;background:var(--verde-claro);transition:width 1s ease;}
-.sf-val{font-size:11px;color:var(--dorado-claro);font-weight:600;width:36px;text-align:right;flex-shrink:0;}
+/* SECTION TITLE */
+.stitle{font-size:15px;font-weight:700;color:var(--txt);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.stitle::after{content:'';flex:1;height:1px;background:var(--border);}
 
-/* ── MERCADO ── */
-#mercado{background:var(--crema);}
-.tam-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:48px;}
-.tam-circles{position:relative;height:320px;display:flex;align-items:center;justify-content:center;}
-.tam-c{position:absolute;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
-.tam-c.tam{width:280px;height:280px;background:rgba(200,150,30,.15);border:2px solid rgba(200,150,30,.3);}
-.tam-c.sam{width:196px;height:196px;background:rgba(58,139,87,.2);border:2px solid rgba(58,139,87,.4);}
-.tam-c.som{width:112px;height:112px;background:rgba(30,92,58,.5);border:2px solid var(--verde-claro);}
-.tam-c-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;}
-.tam-c.tam .tam-c-label{color:var(--dorado);}
-.tam-c.sam .tam-c-label{color:var(--verde-hoja);}
-.tam-c.som .tam-c-label{color:var(--verde-claro);}
-.tam-c-val{font-family:var(--font-title);font-size:16px;font-weight:600;color:var(--verde-bosque);}
-.tam-table{margin-top:0;}
-.tam-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--arena);}
-.tam-row-label{display:flex;align-items:center;gap:12px;}
-.tam-dot{width:12px;height:12px;border-radius:50%;}
-.tam-dot.tam{background:var(--dorado);}
-.tam-dot.sam{background:var(--verde-hoja);}
-.tam-dot.som{background:var(--verde-bosque);}
-.tam-row-name{font-size:13px;font-weight:600;color:var(--verde-bosque);}
-.tam-row-desc{font-size:11px;color:var(--gris-suave);}
-.tam-row-nums{text-align:right;}
-.tam-row-ha{font-family:var(--font-title);font-size:18px;font-weight:600;color:var(--verde-bosque);}
-.tam-row-usd{font-size:12px;color:var(--dorado);font-weight:600;}
+/* PRODUCTS */
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px;}
+.prod{background:var(--card);border-radius:10px;box-shadow:var(--sh);padding:18px;border-top:4px solid var(--gold);cursor:pointer;transition:all .15s;}
+.prod:hover{transform:translateY(-3px);box-shadow:var(--sh-l);}
+.prod-stg{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--g-mid);font-weight:700;margin-bottom:7px;}
+.prod-n{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:5px;}
+.prod-d{font-size:12px;color:var(--txt-s);line-height:1.6;margin-bottom:12px;}
+.prod-m{font-size:13px;font-weight:700;color:var(--gold);padding-top:10px;border-top:1px solid var(--border);}
+.prod-p{font-size:11px;color:var(--txt-m);margin-top:3px;}
 
-/* ── COMPETENCIA ── */
-#competencia{background:var(--verde-bosque);}
-.comp-table-wrap{overflow-x:auto;margin-top:44px;}
-.comp-table{width:100%;border-collapse:collapse;font-size:12px;}
-.comp-table th{padding:12px 14px;text-align:left;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dorado);font-weight:700;border-bottom:2px solid rgba(200,150,30,.25);white-space:nowrap;}
-.comp-table td{padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(245,240,228,.7);white-space:nowrap;}
-.comp-table tr:hover td{background:rgba(200,150,30,.04);}
-.comp-table tr.farmex td{color:var(--dorado-claro);font-weight:600;}
-.comp-table tr.farmex td:first-child{color:var(--dorado-claro);}
-.c-yes{color:var(--verde-claro) !important;font-weight:600;}
-.c-partial{color:var(--dorado) !important;}
-.c-no{color:rgba(245,240,228,.25) !important;}
-.c-strong{color:#4DB6AC !important;font-weight:700;}
-.farmex-badge{background:var(--dorado);color:var(--verde-bosque);padding:2px 8px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-left:8px;}
+/* SIMULATOR */
+.sim{background:var(--card);border-radius:10px;box-shadow:var(--sh);padding:22px;margin-bottom:18px;}
+.sim-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+.fg{display:flex;flex-direction:column;gap:5px;}
+.fl{font-size:10.5px;font-weight:600;color:var(--txt-s);text-transform:uppercase;letter-spacing:.4px;}
+select.fi,input.fi{background:var(--bg);border:1.5px solid var(--border);color:var(--txt);padding:9px 12px;font-size:13px;font-family:inherit;outline:none;border-radius:6px;width:100%;transition:border-color .2s;}
+select.fi:focus,input.fi:focus{border-color:var(--g-mid);}
+.sim-res{background:linear-gradient(135deg,var(--g-dark),var(--g-mid));border-radius:10px;padding:22px;color:#fff;}
+.sim-amt{font-size:38px;font-weight:700;color:var(--gold-l);line-height:1;margin-bottom:3px;}
+.sim-lbl{font-size:10px;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase;}
+.sim-dets{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px;}
+.sd-val{font-size:17px;font-weight:700;color:var(--gold-l);}
+.sd-lbl{font-size:10px;color:rgba(255,255,255,.45);margin-top:2px;text-transform:uppercase;letter-spacing:.4px;}
+.btn-p{background:var(--gold);color:var(--g-dark);padding:12px 26px;border:none;border-radius:7px;font-size:12.5px;font-weight:700;cursor:pointer;margin-top:14px;transition:all .2s;}
+.btn-p:hover{background:var(--gold-l);transform:translateY(-1px);box-shadow:0 4px 14px rgba(200,150,30,.3);}
 
-/* ── FEEDBACK ── */
-#feedback{background:var(--crema);}
-.feedback-inner{max-width:720px;margin:0 auto;}
-.feedback-form{background:#fff;padding:40px;border-top:4px solid var(--dorado);margin-top:44px;box-shadow:0 4px 24px rgba(0,0,0,.06);}
-.fb-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--verde-bosque);font-weight:700;margin-bottom:8px;display:block;}
-.fb-textarea{width:100%;background:var(--crema);border:1px solid var(--arena);padding:14px;font-size:13px;font-family:var(--font-body);color:var(--negro);resize:vertical;min-height:80px;margin-bottom:18px;outline:none;transition:border-color .2s;}
-.fb-textarea:focus{border-color:var(--dorado);}
-.fb-input{width:100%;background:var(--crema);border:1px solid var(--arena);padding:12px 14px;font-size:13px;font-family:var(--font-body);color:var(--negro);margin-bottom:18px;outline:none;transition:border-color .2s;}
-.fb-input:focus{border-color:var(--dorado);}
-.fb-submit{background:var(--verde-bosque);color:var(--dorado-claro);padding:15px 40px;border:none;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:background .2s;}
-.fb-submit:hover{background:var(--verde-campo);}
-.fb-success{display:none;text-align:center;padding:28px;background:rgba(58,139,87,.08);border:1px solid rgba(58,139,87,.3);}
-.fb-success p{font-family:var(--font-title);font-size:20px;color:var(--verde-bosque);}
-.fb-success span{font-size:13px;color:var(--gris-dark);display:block;margin-top:8px;}
+/* MARKET */
+.idx-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
+.idx{background:var(--card);border-radius:10px;box-shadow:var(--sh);padding:16px;transition:transform .15s;}
+.idx:hover{transform:translateY(-2px);}
+.idx-n{font-size:10.5px;color:var(--txt-m);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px;}
+.idx-v{font-size:22px;font-weight:700;color:var(--txt);line-height:1;}
+.idx-u{font-size:11px;color:var(--txt-m);}
+.idx-c{font-size:11.5px;font-weight:600;margin-top:5px;}
+.idx-c.up{color:var(--ok);}.idx-c.dn{color:var(--err);}
+.buyer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.buyer{background:var(--card);border-radius:10px;box-shadow:var(--sh);padding:18px;border-left:4px solid var(--g-mid);transition:all .15s;}
+.buyer:hover{transform:translateY(-2px);box-shadow:var(--sh-l);}
+.buyer-type{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--g-mid);font-weight:700;margin-bottom:5px;}
+.buyer-n{font-size:15px;font-weight:700;color:var(--txt);margin-bottom:3px;}
+.buyer-p{font-size:21px;font-weight:700;color:var(--gold);margin:9px 0;}
+.buyer-p span{font-size:12px;font-weight:400;color:var(--txt-m);}
+.buyer-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:#E8F8EE;color:var(--ok);padding:3px 10px;border-radius:20px;margin:6px 0;}
+.buyer-d{font-size:12px;color:var(--txt-s);line-height:1.7;}
+.btn-c{background:var(--g-dark);color:#fff;padding:9px 18px;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;width:100%;margin-top:10px;transition:background .2s;}
+.btn-c:hover{background:var(--g-mid);}
 
-/* ── FOOTER ── */
-footer{background:var(--negro);padding:48px 56px 32px;border-top:3px solid var(--dorado);}
-.footer-inner{display:flex;justify-content:space-between;align-items:flex-start;gap:32px;flex-wrap:wrap;}
-.footer-brand .nav-logo{margin-bottom:12px;}
-.footer-brand .nav-name{font-size:20px;}
-.footer-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gris-suave);margin-top:8px;}
-.footer-links h4{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--dorado);margin-bottom:14px;}
-.footer-links ul{list-style:none;}
-.footer-links li{margin-bottom:8px;}
-.footer-links a{font-size:13px;color:rgba(245,240,228,.5);transition:color .2s;}
-.footer-links a:hover{color:var(--dorado-claro);}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.06);margin-top:36px;padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
-.footer-copy{font-size:11px;color:rgba(245,240,228,.3);}
-.footer-region{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(200,150,30,.5);}
+/* SCORING */
+.sc-layout{display:grid;grid-template-columns:1fr 2fr;gap:18px;}
+.sc-main{background:linear-gradient(160deg,var(--g-dark),var(--g-mid));border-radius:10px;padding:26px;color:#fff;text-align:center;}
+.sc-circle{position:relative;width:150px;height:150px;margin:18px auto;}
+.sc-circle svg{transform:rotate(-90deg);}
+.sc-txt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.sc-num{font-size:40px;font-weight:800;color:var(--gold-l);line-height:1;}
+.sc-max{font-size:12px;color:rgba(255,255,255,.45);}
+.sc-cat{font-size:15px;font-weight:700;color:var(--gold-l);margin-top:8px;}
+.sc-desc{font-size:12px;color:rgba(255,255,255,.55);margin-top:7px;line-height:1.6;}
+.sc-next{margin-top:18px;padding:12px;background:rgba(200,150,30,.12);border-radius:8px;}
+.sc-next-t{font-size:10px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+.sc-next-v{font-size:13px;color:var(--gold-l);font-weight:700;}
+.sc-next-h{font-size:11px;color:rgba(255,255,255,.45);margin-top:3px;}
+.sc-factors{background:var(--card);border-radius:10px;box-shadow:var(--sh);padding:22px;}
+.sf-row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--border);}
+.sf-row:last-child{border-bottom:none;}
+.sf-ico{width:34px;height:34px;border-radius:8px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.sf-info{flex:1;}
+.sf-n{font-size:13px;font-weight:600;color:var(--txt);}
+.sf-d{font-size:11px;color:var(--txt-m);margin-top:1px;}
+.sf-bar{width:110px;height:7px;background:var(--bg);border-radius:3px;overflow:hidden;}
+.sf-fill{height:100%;border-radius:3px;}
+.sf-v{font-size:13px;font-weight:700;color:var(--txt);width:30px;text-align:right;}
 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
-@keyframes scrollPulse{0%,100%{opacity:.6;}50%{opacity:1;}}
+/* CLIMA */
+.wth-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px;}
+.wth{background:var(--card);border-radius:10px;box-shadow:var(--sh);padding:16px;text-align:center;}
+.wth-day{font-size:11px;font-weight:600;color:var(--txt-s);margin-bottom:7px;}
+.wth-ico{font-size:30px;margin-bottom:6px;}
+.wth-t{font-size:21px;font-weight:700;color:var(--txt);}
+.wth-d{font-size:11px;color:var(--txt-m);margin-top:3px;}
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.risk{background:var(--card);border-radius:10px;box-shadow:var(--sh);padding:18px;}
+.risk-h{display:flex;align-items:center;gap:8px;margin-bottom:11px;}
+.risk-ico{font-size:18px;}
+.risk-t{font-size:14px;font-weight:700;color:var(--txt);}
+.rlvl{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:10px;}
+.rlvl.alto{background:#FDEEEE;color:var(--err);}
+.rlvl.medio{background:#FEF9E7;color:var(--warn);}
+.rlvl.bajo{background:#E8F8EE;color:var(--ok);}
+.risk-d{font-size:12px;color:var(--txt-s);line-height:1.6;}
 
-/* ── RESPONSIVE ── */
-@media(max-width:900px){
-  #navbar{padding:0 20px;}
-  .nav-links{display:none;}
-  section{padding:56px 20px;}
-  #hero{padding:100px 20px 60px;}
-  .hero-quote{display:none;}
-  .prob-grid,.sol-grid,.tam-grid{grid-template-columns:1fr;}
-  .prod-panel.active{grid-template-columns:1fr;}
-  .dash-row{grid-template-columns:1fr 1fr;}
-  .dash-main{grid-template-columns:1fr;}
-  .market-grid{grid-template-columns:1fr;}
-  .score-layout{grid-template-columns:1fr;}
-  .footer-inner{flex-direction:column;}
-  .app-demo-inner{padding:0 20px;}
-  .hero-btns{flex-direction:column;}
-  .sol-features{grid-template-columns:1fr;}
-}
+/* PARCELAS */
+.par-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.par{background:var(--card);border-radius:10px;box-shadow:var(--sh);padding:18px;transition:all .15s;}
+.par:hover{transform:translateY(-2px);box-shadow:var(--sh-l);}
+.par-h{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+.par-n{font-size:14px;font-weight:700;color:var(--txt);}
+.par-ha{font-size:11px;color:var(--txt-m);margin-top:2px;}
+.par-st{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;}
+.st-ok{background:#E8F8EE;color:var(--ok);}.st-w{background:#FEF9E7;color:var(--warn);}
+.par-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
+.ps-v{font-size:14px;font-weight:700;color:var(--txt);}
+.ps-l{font-size:10px;color:var(--txt-m);margin-top:1px;}
+
+@media(max-width:1100px){.kpi-grid{grid-template-columns:1fr 1fr;}.idx-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:800px){.sb{width:56px;min-width:56px;}.sb-name,.sb-sub,.ni span,.sb-lbl,.uc-info{display:none;}.ni{justify-content:center;padding:10px;}.ni-badge{display:none;}.g2,.g60,.sc-layout{grid-template-columns:1fr;}.prod-grid,.buyer-grid{grid-template-columns:1fr;}.par-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav id="navbar">
-  <div class="nav-brand">
-    <div class="nav-logo">FC</div>
+<aside class="sb">
+  <div class="sb-logo">
+    <div class="sb-brand">
+      <div class="sb-icon">FC</div>
+      <div>
+        <div class="sb-name">Farmex <span>Capital</span></div>
+        <div class="sb-sub">Portal del Productor</div>
+      </div>
+    </div>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">Principal</div>
+    <button class="ni active" onclick="go('dashboard',this)"><div class="ni-ico">🏠</div><span>Dashboard</span></button>
+    <button class="ni" onclick="go('parcelas',this)"><div class="ni-ico">🌱</div><span>Mis Parcelas</span></button>
+    <button class="ni" onclick="go('creditos',this)"><div class="ni-ico">💰</div><span>Créditos</span><span class="ni-badge">2</span></button>
+    <button class="ni" onclick="go('mercado',this)"><div class="ni-ico">📈</div><span>Mercado</span></button>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">Análisis</div>
+    <button class="ni" onclick="go('scoring',this)"><div class="ni-ico">⭐</div><span>Mi Score</span></button>
+    <button class="ni" onclick="go('clima',this)"><div class="ni-ico">🌤️</div><span>Clima &amp; Riesgos</span><span class="ni-badge red">!</span></button>
+  </div>
+  <div class="sb-bot">
+    <div class="uc">
+      <div class="uc-av">RG</div>
+      <div>
+        <div class="uc-name">Raúl García</div>
+        <div class="uc-role">La Libertad · 32 ha · Palta</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
     <div>
-      <span class="nav-name">Farmex <span>Capital</span></span>
+      <div class="tb-h1" id="tb-title">Dashboard</div>
+      <div class="tb-sub" id="tb-sub">Bienvenido, Raúl — Campaña Palta Hass 2026 en curso</div>
     </div>
-  </div>
-  <ul class="nav-links">
-    <li><a href="#problemas">Problema</a></li>
-    <li><a href="#solucion">Solución</a></li>
-    <li><a href="#productos">Productos</a></li>
-    <li><a href="#app-demo">App</a></li>
-    <li><a href="#mercado">Mercado</a></li>
-    <li><a href="#feedback">Feedback</a></li>
-  </ul>
-  <div style="display:flex;gap:8px;">
-    <a href="#feedback" class="nav-cta">Únete al Piloto</a>
-    <a href="#app-demo" class="nav-app-btn">Ver App</a>
-  </div>
-</nav>
+    <div class="tb-r">
+      <div class="tb-date">📅 13 Mayo 2026</div>
+      <div class="tb-bell">🔔<div class="bell-dot"></div></div>
+    </div>
+  </header>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-inner">
-    <div class="hero-tag">
-      <div class="hero-dot"></div>
-      AgriFintech · Perú 2026
-    </div>
-    <h1 class="hero-h1">
-      Convertimos ciclos<br><em>agrícolas</em> en
-      <span class="line2">flujo de caja predecible</span>
-    </h1>
-    <p class="hero-sub">
-      La infraestructura financiera especializada para pequeños y medianos agroexportadores de palta y arándano en la costa del Perú. Porque el productor piensa por ciclos, no por trimestres.
-    </p>
-    <div class="hero-chips">
-      <div class="chip"><div class="chip-dot"></div>Costa del Perú</div>
-      <div class="chip"><div class="chip-dot"></div>Palta &amp; Arándano</div>
-      <div class="chip"><div class="chip-dot"></div>10–60 hectáreas</div>
-      <div class="chip"><div class="chip-dot"></div>Scoring Agrícola IA</div>
-    </div>
-    <div class="hero-btns">
-      <a href="#feedback" class="btn-primary">Únete al Piloto →</a>
-      <a href="#app-demo" class="btn-ghost">Ver App Demo</a>
-    </div>
-  </div>
-  <div class="hero-quote">
-    <p>"No necesito un banco. Necesito un socio que entienda mi cultivo."</p>
-    <cite>— Raúl, Productor de Palta · La Libertad</cite>
-  </div>
-</section>
+  <div class="content">
 
-<!-- STATS -->
-<div class="stats-bar">
-  <div class="stat-item">
-    <span class="stat-num">35,000</span>
-    <span class="stat-lbl">Hectáreas TAM</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num">$357M</span>
-    <span class="stat-lbl">Mercado anual</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num">20–30%</span>
-    <span class="stat-lbl">Pérdidas evitables</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num">5</span>
-    <span class="stat-lbl">Regiones costeras</span>
-  </div>
-  <div class="stat-item">
-    <span class="stat-num">6</span>
-    <span class="stat-lbl">Productos por ciclo</span>
+    <!-- DASHBOARD -->
+    <div class="screen active" id="screen-dashboard">
+      <div class="kpi-grid">
+        <div class="kpi gold"><div class="kpi-top"><span class="kpi-lbl">Crédito disponible</span><div class="kpi-ico gold">💳</div></div><div class="kpi-val">S/ 38,400</div><div class="kpi-ch up">↑ +12% vs mes anterior</div></div>
+        <div class="kpi green"><div class="kpi-top"><span class="kpi-lbl">Hectáreas activas</span><div class="kpi-ico green">🌿</div></div><div class="kpi-val">32 ha</div><div class="kpi-ch neu">Palta Hass · La Libertad</div></div>
+        <div class="kpi blue"><div class="kpi-top"><span class="kpi-lbl">Score Farmex</span><div class="kpi-ico blue">⭐</div></div><div class="kpi-val">760</div><div class="kpi-ch up">↑ +15 pts · Muy Bueno</div></div>
+        <div class="kpi orange"><div class="kpi-top"><span class="kpi-lbl">Precio palta hoy</span><div class="kpi-ico orange">🥑</div></div><div class="kpi-val">S/ 4.20</div><div class="kpi-ch up">↑ +3.2% · FOB Paita</div></div>
+      </div>
+      <div class="g60">
+        <div class="card">
+          <div class="ch"><div><div class="ct">Ciclo de Campaña · Palta Hass 2026</div><div class="cs">Etapa 4 de 8 — Engorde de fruto</div></div><span class="badge by">En curso</span></div>
+          <div class="cyc-track"><div class="cyc-ph done"></div><div class="cyc-ph done"></div><div class="cyc-ph done"></div><div class="cyc-ph active"></div><div class="cyc-ph"></div><div class="cyc-ph"></div><div class="cyc-ph"></div><div class="cyc-ph"></div></div>
+          <div class="cyc-lbls"><span>Feb</span><span>Mar</span><span>Abr</span><span>May</span><span>Jun</span><span>Jul</span><span>Ago</span><span>Sep</span></div>
+          <div class="cyc-info">
+            <div class="ci-box"><div class="ci-val">4 / 8</div><div class="ci-lbl">Etapa actual</div></div>
+            <div class="ci-box"><div class="ci-val">112 días</div><div class="ci-lbl">Para cosecha</div></div>
+            <div class="ci-box"><div class="ci-val">~128 TM</div><div class="ci-lbl">Proyección</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ct">Alertas activas</div><span class="badge br">3 nuevas</span></div>
+          <div class="al-list">
+            <div class="al warn"><div class="al-dot warn"></div><div><div class="al-txt">Ventana óptima Crédito Campaña — 3 semanas</div><div class="al-t">Hace 2 días</div></div></div>
+            <div class="al err"><div class="al-dot err"></div><div><div class="al-txt">Lluvias +40% en La Libertad esta semana</div><div class="al-t">Hoy · 08:14 am</div></div></div>
+            <div class="al ok"><div class="al-dot ok"></div><div><div class="al-txt">Seguro paramétrico activado automáticamente</div><div class="al-t">Hoy · 08:15 am</div></div></div>
+            <div class="al inf"><div class="al-dot inf"></div><div><div class="al-txt">AgroExport SAC confirmó 18 TM palta Cal.14</div><div class="al-t">Hace 5 días</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div><div class="ct">Precio Palta Hass · Tendencia 6 meses</div><div class="cs">FOB Puerto Paita · S/ por kg</div></div><span class="badge bg">↑ Alcista</span></div>
+          <div class="ch-wrap"><canvas id="ch-precios"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div><div class="ct">Índices de Mercado</div><div class="cs">Actualizado hoy · Fuente MIDAGRI</div></div></div>
+          <div class="px-grid">
+            <div class="px"><div class="px-crop">🥑 Palta Hass</div><div class="px-val">4.20 <span class="px-unit">S//kg</span></div><div class="px-ch up">↑ +3.2% mensual</div></div>
+            <div class="px"><div class="px-crop">🫐 Arándano</div><div class="px-val">12.50 <span class="px-unit">S//kg</span></div><div class="px-ch dn">↓ -1.8% mensual</div></div>
+            <div class="px"><div class="px-crop">💵 USD/PEN</div><div class="px-val">3.75 <span class="px-unit">S/</span></div><div class="px-ch up">↑ +0.5% semanal</div></div>
+            <div class="px"><div class="px-crop">📦 Exportaciones</div><div class="px-val">+12% <span class="px-unit">YoY</span></div><div class="px-ch up">↑ Tendencia +</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="g60">
+        <div class="card">
+          <div class="ch"><div class="ct">Créditos activos</div><span class="badge by">2 activos</span></div>
+          <div class="cr-item"><div class="cr-ico">💧</div><div class="cr-info"><div class="cr-name">Crédito Riego</div><div class="cr-det">Cuota 3/18 · Vence 25 May</div><div class="cr-bar"><div class="cr-fill" style="width:17%"></div></div></div><div class="cr-amt"><div class="cr-v">S/ 256,000</div><div class="cr-s">S/ 1,840/mes</div></div></div>
+          <div class="cr-item"><div class="cr-ico">🌱</div><div class="cr-info"><div class="cr-name">Crédito Fertilización</div><div class="cr-det">Cuota 6/8 · Vence 1 Jun</div><div class="cr-bar"><div class="cr-fill" style="width:75%"></div></div></div><div class="cr-amt"><div class="cr-v">S/ 144,000</div><div class="cr-s">S/ 21,600/mes</div></div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ct">Acciones rápidas</div></div>
+          <div class="act-grid">
+            <div class="act" onclick="go('creditos',document.querySelectorAll('.ni')[2])"><div class="act-ico">💳</div><div class="act-lbl">Solicitar crédito</div></div>
+            <div class="act" onclick="go('mercado',document.querySelectorAll('.ni')[3])"><div class="act-ico">🤝</div><div class="act-lbl">Ver compradores</div></div>
+            <div class="act" onclick="go('scoring',document.querySelectorAll('.ni')[4])"><div class="act-ico">📊</div><div class="act-lbl">Mi score</div></div>
+            <div class="act" onclick="go('clima',document.querySelectorAll('.ni')[5])"><div class="act-ico">🌦️</div><div class="act-lbl">Clima &amp; riesgos</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARCELAS -->
+    <div class="screen" id="screen-parcelas">
+      <div class="stitle">🌱 Mis Parcelas</div>
+      <div class="par-grid">
+        <div class="par"><div class="par-h"><div><div class="par-n">Parcela Norte — Virú</div><div class="par-ha">18 ha · Palta Hass</div></div><span class="par-st st-ok">Activa</span></div><div class="ch-wrap" style="height:130px;"><canvas id="ch-par1"></canvas></div><div class="par-stats"><div><div class="ps-v">72 TM</div><div class="ps-l">Proyección</div></div><div><div class="ps-v">4.0 kg/m²</div><div class="ps-l">Rendimiento</div></div><div><div class="ps-v">Etapa 4</div><div class="ps-l">Ciclo</div></div></div></div>
+        <div class="par"><div class="par-h"><div><div class="par-n">Parcela Sur — Ascope</div><div class="par-ha">14 ha · Palta Hass</div></div><span class="par-st st-w">⚠ Alerta climática</span></div><div class="ch-wrap" style="height:130px;"><canvas id="ch-par2"></canvas></div><div class="par-stats"><div><div class="ps-v">56 TM</div><div class="ps-l">Proyección</div></div><div><div class="ps-v">4.0 kg/m²</div><div class="ps-l">Rendimiento</div></div><div><div class="ps-v">Etapa 4</div><div class="ps-l">Ciclo</div></div></div></div>
+      </div>
+    </div>
+
+    <!-- CRÉDITOS -->
+    <div class="screen" id="screen-creditos">
+      <div class="stitle">💰 Productos de Financiamiento</div>
+      <div class="prod-grid">
+        <div class="prod"><div class="prod-stg">Etapa 1 · Feb–Abr</div><div class="prod-n">Crédito Fertilización</div><div class="prod-d">Fertilizantes foliares, correctores de suelo y micronutrientes en floración. Decisivo para el calibre final.</div><div class="prod-m">Hasta S/ 4,500 / ha</div><div class="prod-p">8 meses · desde 1.8% mensual</div></div>
+        <div class="prod"><div class="prod-stg">Etapa 2 · May–Jul</div><div class="prod-n">Crédito Campaña</div><div class="prod-d">Capital para mano de obra, empaques, supervisión técnica y costos operativos de la temporada completa.</div><div class="prod-m">Hasta S/ 12,000 / ha</div><div class="prod-p">12 meses · desde 1.6% mensual</div></div>
+        <div class="prod"><div class="prod-stg">Etapa 3 · Todo el ciclo</div><div class="prod-n">Crédito Riego</div><div class="prod-d">Sistemas de riego tecnificado, goteo por presión e infraestructura hídrica para optimizar el agua.</div><div class="prod-m">Hasta S/ 8,000 / ha</div><div class="prod-p">18 meses · desde 1.5% mensual</div></div>
+        <div class="prod"><div class="prod-stg">Etapa 4 · Ago–Oct</div><div class="prod-n">Crédito Postcosecha</div><div class="prod-d">Empaque, cámaras de frío, certificaciones fitosanitarias y transporte hasta el puerto de embarque.</div><div class="prod-m">Hasta S/ 6,500 / ha</div><div class="prod-p">6 meses · desde 1.9% mensual</div></div>
+        <div class="prod"><div class="prod-stg">Etapa 5 · Exportación</div><div class="prod-n">Adelanto Exportación</div><div class="prod-d">Anticipo sobre contrato de venta. Liquidez inmediata sin esperar los 60–90 días del comprador.</div><div class="prod-m">Hasta 80% del contrato</div><div class="prod-p">Hasta cobro · desde 2.1% mensual</div></div>
+        <div class="prod"><div class="prod-stg">Inversión · Largo plazo</div><div class="prod-n">Crédito Tecnificación</div><div class="prod-d">Nuevas hectáreas, renovar variedades, maquinaria de cosecha o tecnología de monitoreo satelital.</div><div class="prod-m">Hasta S/ 25,000 / ha</div><div class="prod-p">36 meses · desde 1.4% mensual</div></div>
+      </div>
+      <div class="stitle">🧮 Simulador de Crédito</div>
+      <div class="sim">
+        <div class="sim-grid">
+          <div class="fg"><label class="fl">Cultivo</label><select class="fi" id="s-cult" onchange="simular()"><option value="palta">Palta Hass</option><option value="arandano">Arándano</option></select></div>
+          <div class="fg"><label class="fl">Tipo de crédito</label><select class="fi" id="s-tipo" onchange="simular()"><option value="fertilizacion">Crédito Fertilización</option><option value="campaña" selected>Crédito Campaña</option><option value="riego">Crédito Riego</option><option value="postcosecha">Crédito Postcosecha</option><option value="exportacion">Adelanto Exportación</option><option value="tecnificacion">Crédito Tecnificación</option></select></div>
+          <div class="fg"><label class="fl">Hectáreas</label><input class="fi" type="number" id="s-ha" value="32" min="1" max="200" oninput="simular()"></div>
+          <div class="fg"><label class="fl">Plazo (meses)</label><select class="fi" id="s-plazo" onchange="simular()"><option value="6">6 meses</option><option value="8">8 meses</option><option value="12" selected>12 meses</option><option value="18">18 meses</option><option value="24">24 meses</option><option value="36">36 meses</option></select></div>
+        </div>
+        <div class="sim-res">
+          <div class="sim-lbl">Monto estimado disponible</div>
+          <div class="sim-amt" id="s-monto">S/ 384,000</div>
+          <div class="sim-dets">
+            <div><div class="sd-val" id="s-tasa">1.6%</div><div class="sd-lbl">Tasa mensual</div></div>
+            <div><div class="sd-val" id="s-cuota">S/ 37,440</div><div class="sd-lbl">Cuota mensual</div></div>
+            <div><div class="sd-val" id="s-tiempo">12 meses</div><div class="sd-lbl">Plazo</div></div>
+          </div>
+          <button class="btn-p">Enviar Solicitud →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MERCADO -->
+    <div class="screen" id="screen-mercado">
+      <div class="stitle">📈 Índices de Mercado</div>
+      <div class="idx-grid">
+        <div class="idx"><div class="idx-n">🥑 Palta Hass FOB</div><div class="idx-v">4.20 <span class="idx-u">S//kg</span></div><div class="idx-c up">↑ +3.2% vs mes ant.</div></div>
+        <div class="idx"><div class="idx-n">🫐 Arándano FOB</div><div class="idx-v">12.50 <span class="idx-u">S//kg</span></div><div class="idx-c dn">↓ -1.8% vs mes ant.</div></div>
+        <div class="idx"><div class="idx-n">💵 Tipo de cambio</div><div class="idx-v">3.75 <span class="idx-u">S//$</span></div><div class="idx-c up">↑ +0.5% semanal</div></div>
+        <div class="idx"><div class="idx-n">📦 Exportación agro</div><div class="idx-v">+12% <span class="idx-u">YoY</span></div><div class="idx-c up">↑ Tendencia positiva</div></div>
+      </div>
+      <div class="card" style="margin-bottom:18px;">
+        <div class="ch"><div><div class="ct">Tendencia de precios · Últimos 6 meses</div><div class="cs">Palta Hass y Arándano · S/ por kg</div></div></div>
+        <div class="ch-wrap" style="height:220px;"><canvas id="ch-mercado"></canvas></div>
+      </div>
+      <div class="stitle">🤝 Compradores activos</div>
+      <div class="buyer-grid">
+        <div class="buyer"><div class="buyer-type">Exportador · Verificado ✓</div><div class="buyer-n">AgroExport SAC</div><div class="buyer-p">S/ 4.20 <span>/kg · FOB Paita</span></div><div class="buyer-tag">Contrato disponible</div><div class="buyer-d">Busca: Palta Hass Cal. 12–16<br>Volumen: 15–25 TM<br>Entrega: Jun–Ago 2026<br>Pago: 30 días contra BL</div><button class="btn-c">Conectar →</button></div>
+        <div class="buyer" style="border-left-color:var(--info);"><div class="buyer-type" style="color:var(--info);">Industria · Procesadora</div><div class="buyer-n">Inca Foods Perú</div><div class="buyer-p">S/ 2.80 <span>/kg · Puerta planta</span></div><div class="buyer-tag">Reduce pérdidas 20–30%</div><div class="buyer-d">Busca: Palta calibre libre<br>Volumen: 40–80 TM<br>Evita mermas por rechazo<br>Pago: Contado 15 días</div><button class="btn-c">Conectar →</button></div>
+        <div class="buyer" style="border-left-color:var(--gold);"><div class="buyer-type" style="color:var(--gold);">Exportador · Premium</div><div class="buyer-n">BlueBerry Export Perú</div><div class="buyer-p">S/ 12.50 <span>/kg · FOB Lima</span></div><div class="buyer-tag" style="background:#FDF3DC;color:var(--gold);">Precio premium</div><div class="buyer-d">Busca: Arándano Cal. 14–18mm<br>Volumen: 8–15 TM<br>Mercado: EE.UU. y UK<br>Requiere: Cert. Global G.A.P.</div><button class="btn-c">Conectar →</button></div>
+      </div>
+    </div>
+
+    <!-- SCORING -->
+    <div class="screen" id="screen-scoring">
+      <div class="stitle">⭐ Mi Score Agrícola Farmex AI</div>
+      <div class="sc-layout">
+        <div class="sc-main">
+          <p style="font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;">Tu puntuación</p>
+          <div class="sc-circle">
+            <svg width="150" height="150" viewBox="0 0 150 150">
+              <circle cx="75" cy="75" r="62" fill="none" stroke="rgba(200,150,30,.15)" stroke-width="11"/>
+              <circle cx="75" cy="75" r="62" fill="none" stroke="#E8B84B" stroke-width="11" stroke-dasharray="390" stroke-dashoffset="93" stroke-linecap="round"/>
+            </svg>
+            <div class="sc-txt"><span class="sc-num">760</span><span class="sc-max">/ 1000</span></div>
+          </div>
+          <div class="sc-cat">Muy Bueno</div>
+          <div class="sc-desc">Accedes a tasas preferenciales desde 1.5% mensual y montos ampliados por historial productivo.</div>
+          <div class="sc-next"><div class="sc-next-t">Próximo nivel</div><div class="sc-next-v">Excelente (800+)</div><div class="sc-next-h">Agrega certificado de posesión para +25 pts</div></div>
+        </div>
+        <div class="sc-factors">
+          <div style="font-size:14px;font-weight:700;color:var(--txt);margin-bottom:16px;">Factores de evaluación</div>
+          <div class="sf-row"><div class="sf-ico">🌾</div><div class="sf-info"><div class="sf-n">Historial productivo</div><div class="sf-d">5 campañas registradas · sin interrupciones</div></div><div class="sf-bar"><div class="sf-fill" style="width:90%;background:var(--ok)"></div></div><div class="sf-v">90</div></div>
+          <div class="sf-row"><div class="sf-ico">🏡</div><div class="sf-info"><div class="sf-n">Tenencia de tierra</div><div class="sf-d">32 ha propias con título registrado</div></div><div class="sf-bar"><div class="sf-fill" style="width:85%;background:var(--ok)"></div></div><div class="sf-v">85</div></div>
+          <div class="sf-row"><div class="sf-ico">💳</div><div class="sf-info"><div class="sf-n">Historial de pagos</div><div class="sf-d">2 créditos activos · pagos al día</div></div><div class="sf-bar"><div class="sf-fill" style="width:80%;background:var(--gold)"></div></div><div class="sf-v">80</div></div>
+          <div class="sf-row"><div class="sf-ico">📡</div><div class="sf-info"><div class="sf-n">Data satelital (NDVI)</div><div class="sf-d">Índice 0.68 · vegetación saludable</div></div><div class="sf-bar"><div class="sf-fill" style="width:75%;background:var(--gold)"></div></div><div class="sf-v">75</div></div>
+          <div class="sf-row"><div class="sf-ico">🌍</div><div class="sf-info"><div class="sf-n">Vinculación comercial</div><div class="sf-d">3 compradores activos · 1 contrato firmado</div></div><div class="sf-bar"><div class="sf-fill" style="width:70%;background:var(--info)"></div></div><div class="sf-v">70</div></div>
+          <div class="sf-row"><div class="sf-ico">📄</div><div class="sf-info"><div class="sf-n">Documentación</div><div class="sf-d">Pendiente: Certificado de posesión</div></div><div class="sf-bar"><div class="sf-fill" style="width:60%;background:var(--warn)"></div></div><div class="sf-v">60</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLIMA -->
+    <div class="screen" id="screen-clima">
+      <div class="stitle">🌤️ Clima y Riesgos · La Libertad</div>
+      <div class="wth-grid">
+        <div class="wth"><div class="wth-day">Hoy</div><div class="wth-ico">⛅</div><div class="wth-t">22°C</div><div class="wth-d">Parcialmente nublado</div></div>
+        <div class="wth"><div class="wth-day">Mañana</div><div class="wth-ico">🌧️</div><div class="wth-t">19°C</div><div class="wth-d">Lluvias moderadas</div></div>
+        <div class="wth"><div class="wth-day">Jueves</div><div class="wth-ico">🌦️</div><div class="wth-t">21°C</div><div class="wth-d">Chubascos aislados</div></div>
+        <div class="wth"><div class="wth-day">Viernes</div><div class="wth-ico">☀️</div><div class="wth-t">25°C</div><div class="wth-d">Soleado</div></div>
+      </div>
+      <div class="card" style="margin-bottom:18px;">
+        <div class="ch"><div><div class="ct">Precipitaciones proyectadas · Próximas 4 semanas</div><div class="cs">mm por semana · La Libertad</div></div><span class="badge br">⚠ Riesgo alto sem. 2</span></div>
+        <div class="ch-wrap"><canvas id="ch-clima"></canvas></div>
+      </div>
+      <div class="stitle">⚠️ Análisis de Riesgos</div>
+      <div class="risk-grid">
+        <div class="risk"><div class="risk-h"><div class="risk-ico">🌧️</div><div class="risk-t">Riesgo de lluvias excesivas</div></div><div class="rlvl alto">● ALTO</div><div class="risk-d">Probabilidad del 68% de lluvias sobre umbral normal los próximos 10 días. Riesgo en floración tardía y postcosecha temprana. <strong>Seguro paramétrico activado.</strong></div></div>
+        <div class="risk"><div class="risk-h"><div class="risk-ico">🌡️</div><div class="risk-t">Variación de temperatura</div></div><div class="rlvl medio">● MEDIO</div><div class="risk-d">Oscilaciones de 8–12°C entre día y noche. Puede afectar el calibre del fruto en etapa de engorde. Monitoreo satelital activo.</div></div>
+        <div class="risk"><div class="risk-h"><div class="risk-ico">💨</div><div class="risk-t">Vientos / Fenómeno El Niño</div></div><div class="rlvl bajo">● BAJO</div><div class="risk-d">Índice ONI actual: +0.4°C. Sin alerta activa. Condiciones dentro de rangos históricos normales para esta época del año.</div></div>
+        <div class="risk"><div class="risk-h"><div class="risk-ico">🛡️</div><div class="risk-t">Cobertura de seguro</div></div><div class="rlvl bajo">● PROTEGIDO</div><div class="risk-d">Seguro paramétrico activo para 32 ha. Activación automática al superar umbral de 45mm/24h. Pago garantizado en 72 horas.</div></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<!-- PROBLEMAS -->
-<section id="problemas">
-  <div style="text-align:center;margin-bottom:0;">
-    <span class="section-tag" style="text-align:center;display:block;">Por qué existimos</span>
-    <h2 class="section-h2 text-center">El sistema los <em>trata como promedio.</em><br>Nosotros no.</h2>
-    <p class="section-sub center" style="margin-top:14px;">La banca tradicional no entiende campañas, cosechas ni ventanas productivas. Este agricultor ya invirtió en ser mejor que el promedio.</p>
-  </div>
-  <div class="prob-grid">
-    <div class="prob-card">
-      <div class="prob-num">01</div>
-      <div class="prob-title">Capital de trabajo insuficiente</div>
-      <ul class="prob-list">
-        <li>Fertilización en momento crítico</li>
-        <li>Costos de riego e irrigación</li>
-        <li>Jornales y mano de obra</li>
-        <li>Postcosecha y transporte</li>
-      </ul>
-    </div>
-    <div class="prob-card">
-      <div class="prob-num">02</div>
-      <div class="prob-title">Riesgo climático sin cobertura</div>
-      <ul class="prob-list">
-        <li>Fenómeno El Niño impredecible</li>
-        <li>Lluvias y sequías extremas</li>
-        <li>Reducción forzada de hectáreas</li>
-        <li>Caída de producción sin seguro</li>
-      </ul>
-    </div>
-    <div class="prob-card">
-      <div class="prob-num">03</div>
-      <div class="prob-title">Sin estructura financiera agrícola</div>
-      <ul class="prob-list">
-        <li>Bancos no entienden ciclos de cultivo</li>
-        <li>Scoring bancario penaliza al agricultor</li>
-        <li>Sin acceso a exportación directa</li>
-        <li>Fragmentación frente a grandes compradores</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- SOLUCIÓN -->
-<section id="solucion">
-  <span class="section-tag light">Nuestra solución</span>
-  <h2 class="section-h2 light">AgriFintech <em>integrada</em><br>por cultivo</h2>
-  <div class="sol-grid">
-    <div>
-      <div class="sol-quote-box">
-        <blockquote>"Farmex Capital conecta financiamiento inteligente, data agrícola y marketplace para que el pequeño agroexportador crezca, exporte y opere con estabilidad financiera."</blockquote>
-        <cite>Propuesta de valor · Farmex Capital 2026</cite>
-      </div>
-      <p class="section-sub light" style="margin-top:24px;">El verdadero problema no es solo falta de dinero. Es falta de <strong style="color:var(--dorado-claro);">infraestructura financiera agrícola especializada</strong>. Nosotros la construimos.</p>
-    </div>
-    <div class="sol-features">
-      <div class="sol-feat">
-        <div class="sol-feat-icon">💰</div>
-        <div class="sol-feat-name">Financiamiento</div>
-        <div class="sol-feat-desc">Crédito por etapa productiva. El productor piensa por ciclos.</div>
-      </div>
-      <div class="sol-feat">
-        <div class="sol-feat-icon">🧠</div>
-        <div class="sol-feat-name">Scoring Agrícola IA</div>
-        <div class="sol-feat-desc">Scoring alternativo basado en data de campo, no historial bancario.</div>
-      </div>
-      <div class="sol-feat">
-        <div class="sol-feat-icon">📊</div>
-        <div class="sol-feat-name">Agri Data Platform</div>
-        <div class="sol-feat-desc">Data satelital, climática y de mercado integrada.</div>
-      </div>
-      <div class="sol-feat">
-        <div class="sol-feat-icon">🌾</div>
-        <div class="sol-feat-name">Asistencia Técnica</div>
-        <div class="sol-feat-desc">Acompañamiento digital para reducir pérdidas del 20–30%.</div>
-      </div>
-      <div class="sol-feat">
-        <div class="sol-feat-icon">🤝</div>
-        <div class="sol-feat-name">Marketplace Agrícola</div>
-        <div class="sol-feat-desc">Conexión directa con exportadores y compradores industriales.</div>
-      </div>
-      <div class="sol-feat">
-        <div class="sol-feat-icon">🛡️</div>
-        <div class="sol-feat-name">Seguro Paramétrico</div>
-        <div class="sol-feat-desc">Cobertura climática automática por indicadores satelitales.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRODUCTOS POR ETAPA -->
-<section id="productos">
-  <div class="prod-header">
-    <span class="section-tag">Financiamiento por ciclo</span>
-    <h2 class="section-h2">Crédito para cada <em>etapa</em> de tu cultivo</h2>
-    <p class="section-sub center" style="margin-top:12px;">No un préstamo genérico. Financiamiento diseñado exactamente para cuándo y cuánto necesitas según tu ciclo productivo.</p>
-  </div>
-  <div class="cultivo-tabs">
-    <button class="c-tab active" onclick="switchCultivo('palta',this)">Palta (Hass)</button>
-    <button class="c-tab" onclick="switchCultivo('arandano',this)">Arándano</button>
-  </div>
-  <div id="panel-palta" class="prod-panel active">
-    <div class="prod-card">
-      <div class="prod-stage">Etapa 1 · Feb–Abr</div>
-      <div class="prod-name">Crédito Fertilización</div>
-      <div class="prod-desc">Cubre fertilizantes foliares, correctores de suelo y micronutrientes en la etapa de floración. Decisivo para el calibre final del fruto.</div>
-      <div class="prod-monto">Hasta S/ 4,500 / ha</div>
-      <div class="prod-plazo">Plazo: 8 meses · Tasa: desde 1.8% mensual</div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-stage">Etapa 2 · May–Jul</div>
-      <div class="prod-name">Crédito Campaña</div>
-      <div class="prod-desc">Capital para cubrir la temporada completa: mano de obra, empaques, supervisión técnica y costos operativos durante el período de mayor actividad.</div>
-      <div class="prod-monto">Hasta S/ 12,000 / ha</div>
-      <div class="prod-plazo">Plazo: 12 meses · Tasa: desde 1.6% mensual</div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-stage">Etapa 3 · Todo el ciclo</div>
-      <div class="prod-name">Crédito Riego</div>
-      <div class="prod-desc">Financiamiento para sistemas de riego tecnificado, goteo por presión y mejoras de infraestructura hídrica para optimizar el uso del agua.</div>
-      <div class="prod-monto">Hasta S/ 8,000 / ha</div>
-      <div class="prod-plazo">Plazo: 18 meses · Tasa: desde 1.5% mensual</div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-stage">Etapa 4 · Ago–Oct</div>
-      <div class="prod-name">Crédito Postcosecha</div>
-      <div class="prod-desc">Cubre costos de empaque, cámaras de frío, certificaciones fitosanitarias y transporte hasta el puerto de embarque.</div>
-      <div class="prod-monto">Hasta S/ 6,500 / ha</div>
-      <div class="prod-plazo">Plazo: 6 meses · Tasa: desde 1.9% mensual</div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-stage">Etapa 5 · Exportación</div>
-      <div class="prod-name">Adelanto Exportación</div>
-      <div class="prod-desc">Anticipo sobre contrato de venta con el exportador. Liquidez inmediata sin esperar el pago a 60–90 días del comprador internacional.</div>
-      <div class="prod-monto">Hasta 80% del contrato</div>
-      <div class="prod-plazo">Plazo: hasta cobro · Tasa: desde 2.1% mensual</div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-stage">Inversión · Largo plazo</div>
-      <div class="prod-name">Crédito Tecnificación</div>
-      <div class="prod-desc">Para instalar nuevas hectáreas, renovar variedades, adquirir maquinaria de cosecha o tecnología de monitoreo satelital de parcelas.</div>
-      <div class="prod-monto">Hasta S/ 25,000 / ha</div>
-      <div class="prod-plazo">Plazo: 36 meses · Tasa: desde 1.4% mensual</div>
-    </div>
-  </div>
-  <div id="panel-arandano" class="prod-panel">
-    <div class="prod-card">
-      <div class="prod-stage">Etapa 1 · Mar–May</div>
-      <div class="prod-name">Crédito Fertilización</div>
-      <div class="prod-desc">Nutrición específica para arándano: acidificación del suelo, sulfatos y quelatos en fase de brotación. Crítico para producción en el primer año.</div>
-      <div class="prod-monto">Hasta S/ 5,500 / ha</div>
-      <div class="prod-plazo">Plazo: 8 meses · Tasa: desde 1.8% mensual</div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-stage">Etapa 2 · Jun–Ago</div>
-      <div class="prod-name">Crédito Campaña</div>
-      <div class="prod-desc">Costos operativos de la temporada de cosecha: mano de obra intensiva, supervisión, control de calidad y acondicionamiento de frutos para exportación.</div>
-      <div class="prod-monto">Hasta S/ 15,000 / ha</div>
-      <div class="prod-plazo">Plazo: 10 meses · Tasa: desde 1.6% mensual</div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-stage">Etapa 3 · Permanente</div>
-      <div class="prod-name">Crédito Riego Tecnificado</div>
-      <div class="prod-desc">El arándano requiere riego de alta precisión. Financiamos sistemas de fertirriego automatizado con sensores de humedad y conductividad eléctrica.</div>
-      <div class="prod-monto">Hasta S/ 10,000 / ha</div>
-      <div class="prod-plazo">Plazo: 24 meses · Tasa: desde 1.5% mensual</div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-stage">Etapa 4 · Sep–Oct</div>
-      <div class="prod-name">Crédito Postcosecha</div>
-      <div class="prod-desc">Cold chain completo: pre-enfriado, cámaras de atmósfera controlada, empaque en bandejas clam-shell y certificaciones GLOBAL G.A.P.</div>
-      <div class="prod-monto">Hasta S/ 8,000 / ha</div>
-      <div class="prod-plazo">Plazo: 6 meses · Tasa: desde 1.9% mensual</div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-stage">Etapa 5 · Exportación</div>
-      <div class="prod-name">Adelanto Exportación</div>
-      <div class="prod-desc">Anticipo sobre orden de compra confirmada con supermercados o brokers internacionales en EE.UU., Europa y Asia. Tasas preferenciales para primeros embarques.</div>
-      <div class="prod-monto">Hasta 85% del contrato</div>
-      <div class="prod-plazo">Plazo: hasta cobro · Tasa: desde 2.0% mensual</div>
-    </div>
-    <div class="prod-card">
-      <div class="prod-stage">Inversión · Largo plazo</div>
-      <div class="prod-name">Crédito Plantación</div>
-      <div class="prod-desc">Para nuevas plantaciones de arándano con material genético certificado, construcción de mallas antihelada, postes y sistemas de conducción. ROI en 3 años.</div>
-      <div class="prod-monto">Hasta S/ 45,000 / ha</div>
-      <div class="prod-plazo">Plazo: 48 meses · Tasa: desde 1.4% mensual</div>
-    </div>
-  </div>
-</section>
-
-<!-- APP DEMO -->
-<section id="app-demo">
-  <div class="app-demo-inner">
-    <div class="app-demo-header">
-      <span class="section-tag light" style="display:block;text-align:center;">Prototipo interactivo</span>
-      <h2 class="section-h2 light text-center">Así ve el agricultor <em>su app</em></h2>
-      <p class="section-sub center light" style="margin-top:12px;">Explora el dashboard, simula un crédito, revisa el marketplace y consulta tu scoring agrícola.</p>
-    </div>
-    <div class="app-frame">
-      <div class="app-topbar">
-        <div class="app-topbar-brand">Farmex <span>Capital</span> · App</div>
-        <div class="app-topbar-user">
-          <span class="app-user-name">Raúl García · La Libertad · 32 ha Palta</span>
-          <div class="app-user-avatar">RG</div>
-        </div>
-      </div>
-      <div class="app-nav">
-        <button class="app-nav-btn active" onclick="switchScreen('dashboard',this)">Dashboard</button>
-        <button class="app-nav-btn" onclick="switchScreen('credito',this)">Solicitar Crédito</button>
-        <button class="app-nav-btn" onclick="switchScreen('marketplace',this)">Marketplace</button>
-        <button class="app-nav-btn" onclick="switchScreen('scoring',this)">Mi Scoring</button>
-      </div>
-      <div class="app-content">
-
-        <!-- DASHBOARD -->
-        <div class="app-screen active" id="screen-dashboard">
-          <div class="dash-row">
-            <div class="kpi-card">
-              <div class="kpi-val">S/ 38,400</div>
-              <div class="kpi-lbl">Crédito disponible</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-val">32 ha</div>
-              <div class="kpi-lbl">Hectáreas activas</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-val">760</div>
-              <div class="kpi-lbl">Score agrícola</div>
-            </div>
-            <div class="kpi-card">
-              <div class="kpi-val">3</div>
-              <div class="kpi-lbl">Compradores vinculados</div>
-            </div>
-          </div>
-          <div class="dash-main">
-            <div class="dash-panel">
-              <div class="dash-panel-title">Ciclo de Campaña · Palta Hass 2026</div>
-              <div class="cycle-bar">
-                <div class="cycle-step done"></div>
-                <div class="cycle-step done"></div>
-                <div class="cycle-step done"></div>
-                <div class="cycle-step active"></div>
-                <div class="cycle-step"></div>
-                <div class="cycle-step"></div>
-                <div class="cycle-step"></div>
-                <div class="cycle-step"></div>
-              </div>
-              <div class="cycle-label">
-                <span>Feb</span><span>Mar</span><span>Abr</span><span>May</span><span>Jun</span><span>Jul</span><span>Ago</span><span>Sep</span>
-              </div>
-              <div class="alert-item">
-                <div class="alert-dot warning"></div>
-                <div>
-                  <div class="alert-text">Crédito Campaña disponible. Ventana óptima: próximas 3 semanas.</div>
-                  <div class="alert-time">Hace 2 días</div>
-                </div>
-              </div>
-              <div class="alert-item">
-                <div class="alert-dot ok"></div>
-                <div>
-                  <div class="alert-text">Comprador AgroExport SAC confirmó interés por 18 TM de palta calibre 14.</div>
-                  <div class="alert-time">Hace 5 días</div>
-                </div>
-              </div>
-              <div class="alert-item">
-                <div class="alert-dot warning"></div>
-                <div>
-                  <div class="alert-text">Alerta climática: Probabilidad de lluvias +40% en La Libertad próxima semana.</div>
-                  <div class="alert-time">Hoy</div>
-                </div>
-              </div>
-              <div class="alert-item">
-                <div class="alert-dot ok"></div>
-                <div>
-                  <div class="alert-text">Seguro paramétrico activado automáticamente por índice pluviométrico.</div>
-                  <div class="alert-time">Hoy</div>
-                </div>
-              </div>
-            </div>
-            <div class="dash-panel">
-              <div class="dash-panel-title">Próximas acciones</div>
-              <div class="alert-item">
-                <div class="alert-dot warning"></div>
-                <div>
-                  <div class="alert-text"><strong style="color:var(--dorado-claro);">Cuota 3/8</strong> · Crédito Riego vence en 12 días<br><span style="color:var(--verde-claro);font-size:11px;">S/ 1,840 · Pago automático activo</span></div>
-                </div>
-              </div>
-              <div class="alert-item">
-                <div class="alert-dot ok"></div>
-                <div>
-                  <div class="alert-text"><strong style="color:var(--dorado-claro);">Visita técnica</strong> programada<br><span style="color:var(--verde-claro);font-size:11px;">Ing. Quispe · 22 May, 8:00 am</span></div>
-                </div>
-              </div>
-              <div class="alert-item">
-                <div class="alert-dot warning"></div>
-                <div>
-                  <div class="alert-text"><strong style="color:var(--dorado-claro);">Completa tu perfil</strong> para subir scoring<br><span style="color:rgba(245,240,228,.4);font-size:11px;">Falta: Certificado de posesión del predio</span></div>
-                </div>
-              </div>
-              <button class="btn-app" onclick="switchScreen('credito',document.querySelectorAll('.app-nav-btn')[1])">Solicitar Crédito Campaña</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- CRÉDITO -->
-        <div class="app-screen" id="screen-credito">
-          <div style="margin-bottom:20px;">
-            <div class="dash-panel-title" style="color:var(--dorado);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:6px;">Simulador de Crédito Agrícola</div>
-            <p style="font-size:12.5px;color:rgba(245,240,228,.55);">Selecciona tu cultivo, etapa y hectáreas para calcular el monto disponible.</p>
-          </div>
-          <div class="cred-form">
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">Cultivo</label>
-                <select class="form-select" id="cred-cultivo" onchange="calcularCredito()">
-                  <option value="palta">Palta Hass</option>
-                  <option value="arandano">Arándano</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Etapa</label>
-                <select class="form-select" id="cred-etapa" onchange="calcularCredito()">
-                  <option value="fertilizacion">Crédito Fertilización</option>
-                  <option value="campaña">Crédito Campaña</option>
-                  <option value="riego">Crédito Riego</option>
-                  <option value="postcosecha">Crédito Postcosecha</option>
-                  <option value="exportacion">Adelanto Exportación</option>
-                  <option value="tecnificacion">Crédito Tecnificación</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label">Hectáreas</label>
-                <input class="form-input" id="cred-ha" type="number" value="32" min="1" max="200" oninput="calcularCredito()">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Plazo preferido</label>
-                <select class="form-select" id="cred-plazo">
-                  <option value="6">6 meses</option>
-                  <option value="8" selected>8 meses</option>
-                  <option value="12">12 meses</option>
-                  <option value="18">18 meses</option>
-                  <option value="24">24 meses</option>
-                  <option value="36">36 meses</option>
-                </select>
-              </div>
-            </div>
-            <div class="calc-result" id="calc-result">
-              <div class="calc-result-num" id="calc-monto">S/ 144,000</div>
-              <div class="calc-result-lbl">Monto estimado disponible</div>
-              <div class="calc-details">
-                <div class="calc-det-item">
-                  <div class="calc-det-val" id="calc-tasa">1.8%</div>
-                  <div class="calc-det-lbl">Tasa mensual</div>
-                </div>
-                <div class="calc-det-item">
-                  <div class="calc-det-val" id="calc-cuota">S/ 19,400</div>
-                  <div class="calc-det-lbl">Cuota mensual est.</div>
-                </div>
-                <div class="calc-det-item">
-                  <div class="calc-det-val" id="calc-tiempo">8 meses</div>
-                  <div class="calc-det-lbl">Plazo</div>
-                </div>
-              </div>
-            </div>
-            <button class="btn-app">Enviar Solicitud →</button>
-          </div>
-        </div>
-
-        <!-- MARKETPLACE -->
-        <div class="app-screen" id="screen-marketplace">
-          <div style="margin-bottom:16px;">
-            <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--dorado);font-weight:700;margin-bottom:6px;">Marketplace Agrícola · Compradores activos</div>
-            <p style="font-size:12px;color:rgba(245,240,228,.5);">Conecta directamente con exportadores y compradores industriales. Sin intermediarios.</p>
-          </div>
-          <div class="market-filters">
-            <button class="mfilter active">Todos</button>
-            <button class="mfilter">Exportadores</button>
-            <button class="mfilter">Industria</button>
-            <button class="mfilter">Palta</button>
-            <button class="mfilter">Arándano</button>
-          </div>
-          <div class="market-grid">
-            <div class="market-card">
-              <div class="mcard-type">Exportador · Verificado</div>
-              <div class="mcard-title">AgroExport SAC</div>
-              <div class="mcard-price">S/ 4.20 <span>/kg · FOB Paita</span></div>
-              <div class="mcard-info">Busca: Palta Hass Cal. 12–16<br>Volumen: 15–25 TM<br>Entrega: Jun–Ago 2026<br>Pago: 30 días contra BL</div>
-              <div class="mcard-tag">Contrato disponible</div>
-              <button class="btn-app-sm">Conectar →</button>
-            </div>
-            <div class="market-card">
-              <div class="mcard-type">Industria · Procesadora</div>
-              <div class="mcard-title">Procesadora Inca Foods</div>
-              <div class="mcard-price">S/ 2.80 <span>/kg · Puerta planta</span></div>
-              <div class="mcard-info">Busca: Palta calibre libre (proceso)<br>Volumen: 40–80 TM<br>Evita pérdidas por rechazo exportación<br>Pago: Contado a 15 días</div>
-              <div class="mcard-tag">Reduce pérdidas 20–30%</div>
-              <button class="btn-app-sm">Conectar →</button>
-            </div>
-            <div class="market-card">
-              <div class="mcard-type">Exportador · Verificado</div>
-              <div class="mcard-title">BlueBerry Export Perú</div>
-              <div class="mcard-price">S/ 12.50 <span>/kg · FOB Lima</span></div>
-              <div class="mcard-info">Busca: Arándano calibre 14–18mm<br>Volumen: 8–15 TM<br>Mercado: EE.UU. y Reino Unido<br>Requiere: Cert. Global G.A.P.</div>
-              <div class="mcard-tag">Premium export</div>
-              <button class="btn-app-sm">Conectar →</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- SCORING -->
-        <div class="app-screen" id="screen-scoring">
-          <div style="margin-bottom:16px;">
-            <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--dorado);font-weight:700;margin-bottom:6px;">Scoring Agrícola Inteligente · Farmex AI</div>
-            <p style="font-size:12px;color:rgba(245,240,228,.5);">Tu score no se basa en historial bancario. Se basa en tu campo, tu ciclo y tu historial productivo.</p>
-          </div>
-          <div class="score-layout">
-            <div class="score-circle-wrap">
-              <div class="score-circle">
-                <svg width="140" height="140" viewBox="0 0 140 140">
-                  <circle cx="70" cy="70" r="58" fill="none" stroke="rgba(200,150,30,.12)" stroke-width="10"/>
-                  <circle cx="70" cy="70" r="58" fill="none" stroke="var(--dorado-claro)" stroke-width="10"
-                    stroke-dasharray="364" stroke-dashoffset="87" stroke-linecap="round"/>
-                </svg>
-                <div class="score-circle-text">
-                  <span class="score-num">760</span>
-                  <span class="score-max">/ 1000</span>
-                </div>
-              </div>
-              <div class="score-label">Muy Bueno</div>
-              <p style="font-size:11px;color:rgba(245,240,228,.45);text-align:center;margin-top:10px;line-height:1.5;">Accedes a tasas preferenciales desde 1.5% mensual</p>
-            </div>
-            <div class="score-factors">
-              <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--dorado);font-weight:700;margin-bottom:14px;">Factores de Score</div>
-              <div class="score-factor">
-                <div class="sf-name">Historial productivo</div>
-                <div class="sf-bar"><div class="sf-fill" style="width:88%"></div></div>
-                <div class="sf-val">880</div>
-              </div>
-              <div class="score-factor">
-                <div class="sf-name">Calidad de suelo</div>
-                <div class="sf-bar"><div class="sf-fill" style="width:72%"></div></div>
-                <div class="sf-val">720</div>
-              </div>
-              <div class="score-factor">
-                <div class="sf-name">Riesgo climático zona</div>
-                <div class="sf-bar"><div class="sf-fill" style="width:65%"></div></div>
-                <div class="sf-val">650</div>
-              </div>
-              <div class="score-factor">
-                <div class="sf-name">Cumplimiento pagos</div>
-                <div class="sf-bar"><div class="sf-fill" style="width:95%"></div></div>
-                <div class="sf-val">950</div>
-              </div>
-              <div class="score-factor">
-                <div class="sf-name">Certificaciones</div>
-                <div class="sf-bar"><div class="sf-fill" style="width:60%"></div></div>
-                <div class="sf-val">600</div>
-              </div>
-              <div class="score-factor">
-                <div class="sf-name">Acceso a mercados</div>
-                <div class="sf-bar"><div class="sf-fill" style="width:78%"></div></div>
-                <div class="sf-val">780</div>
-              </div>
-              <div style="margin-top:16px;padding:12px;background:rgba(200,150,30,.08);border-left:3px solid var(--dorado);">
-                <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dorado);font-weight:700;margin-bottom:6px;">Cómo subir tu score</div>
-                <div style="font-size:11.5px;color:rgba(245,240,228,.6);line-height:1.6;">Agrega certificado de posesión del predio y obtén +40 puntos. Eso te da acceso a <strong style="color:var(--verde-claro);">Crédito Tecnificación</strong>.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- end app-content -->
-    </div><!-- end app-frame -->
-  </div>
-</section>
-
-<!-- MERCADO TAM/SAM/SOM -->
-<section id="mercado">
-  <span class="section-tag">Dimensionamiento estratégico</span>
-  <h2 class="section-h2">Mercado <em>objetivo</em></h2>
-  <p class="section-sub" style="margin-top:10px;">Estimado a 2027. Cultivos de palta y arándano, costa del Perú. Productores de 10 a 60 ha con vocación exportadora.</p>
-  <div class="tam-grid">
-    <div class="tam-circles">
-      <div class="tam-c tam">
-        <span class="tam-c-label">TAM</span>
-        <span class="tam-c-val">35,000 ha</span>
-        <span style="font-size:12px;color:var(--dorado);font-weight:600;">$357M / año</span>
-      </div>
-      <div class="tam-c sam">
-        <span class="tam-c-label">SAM</span>
-        <span class="tam-c-val">17,500 ha</span>
-        <span style="font-size:11px;color:var(--verde-hoja);font-weight:600;">$178.5M</span>
-      </div>
-      <div class="tam-c som">
-        <span class="tam-c-label">SOM</span>
-        <span class="tam-c-val" style="font-size:13px;">3,500 ha</span>
-        <span style="font-size:10px;color:var(--verde-claro);font-weight:600;">$35.7M</span>
-      </div>
-    </div>
-    <div class="tam-table">
-      <div class="tam-row">
-        <div class="tam-row-label">
-          <div class="tam-dot tam"></div>
-          <div>
-            <div class="tam-row-name">TAM · Mercado Total</div>
-            <div class="tam-row-desc">Todos los productores de palta y arándano en costa peruana</div>
-          </div>
-        </div>
-        <div class="tam-row-nums">
-          <div class="tam-row-ha">35,000 ha</div>
-          <div class="tam-row-usd">$357M / año</div>
-        </div>
-      </div>
-      <div class="tam-row">
-        <div class="tam-row-label">
-          <div class="tam-dot sam"></div>
-          <div>
-            <div class="tam-row-name">SAM · Mercado Servible</div>
-            <div class="tam-row-desc">50% con perfil agroexportador y acceso digital</div>
-          </div>
-        </div>
-        <div class="tam-row-nums">
-          <div class="tam-row-ha">17,500 ha</div>
-          <div class="tam-row-usd">$178.5M / año</div>
-        </div>
-      </div>
-      <div class="tam-row">
-        <div class="tam-row-label">
-          <div class="tam-dot som"></div>
-          <div>
-            <div class="tam-row-name">SOM · Mercado Objetivo</div>
-            <div class="tam-row-desc">20% del SAM · Meta año 2–3</div>
-          </div>
-        </div>
-        <div class="tam-row-nums">
-          <div class="tam-row-ha">3,500 ha</div>
-          <div class="tam-row-usd">$35.7M / año</div>
-        </div>
-      </div>
-      <div style="margin-top:20px;padding:16px;background:var(--verde-bosque);border-left:3px solid var(--dorado);">
-        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--dorado);font-weight:700;margin-bottom:8px;">Escalabilidad regional</div>
-        <p style="font-size:12.5px;color:rgba(245,240,228,.7);line-height:1.6;">El problema no es solo peruano. Existe en <strong style="color:var(--crema);">México, Colombia, Chile, Ecuador, Guatemala, Marruecos y España</strong>. La plataforma escala con el ecosistema de data.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- COMPETENCIA -->
-<section id="competencia">
-  <span class="section-tag light">Análisis competitivo</span>
-  <h2 class="section-h2 light">Nadie ocupa <em>nuestro espacio</em></h2>
-  <p class="section-sub light" style="margin-top:12px;">Ningún competidor domina específicamente pequeños agroexportadores de palta y arándano en la costa peruana combinando todos estos servicios.</p>
-  <div class="comp-table-wrap">
-    <table class="comp-table">
-      <thead>
-        <tr>
-          <th>Empresa</th>
-          <th>País</th>
-          <th>Crédito</th>
-          <th>Embedded Finance</th>
-          <th>Marketplace</th>
-          <th>Exportación</th>
-          <th>Data/Scoring</th>
-          <th>Asist. Técnica</th>
-          <th>Seguro</th>
-          <th>% Perú</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="farmex">
-          <td>Farmex Capital <span class="farmex-badge">Nosotros</span></td>
-          <td>Perú</td>
-          <td class="c-strong">Por ciclo</td>
-          <td class="c-strong">Sí</td>
-          <td class="c-strong">Sí</td>
-          <td class="c-strong">Sí</td>
-          <td class="c-strong">IA</td>
-          <td class="c-strong">Sí</td>
-          <td class="c-strong">Sí</td>
-          <td class="c-strong">Piloto</td>
-        </tr>
-        <tr>
-          <td>ProducePay</td>
-          <td>USA/LATAM</td>
-          <td class="c-yes">Sí</td>
-          <td class="c-partial">Parcial</td>
-          <td class="c-yes">Sí</td>
-          <td class="c-strong">Muy fuerte</td>
-          <td class="c-yes">Sí</td>
-          <td class="c-partial">Parcial</td>
-          <td class="c-no">No</td>
-          <td>35%</td>
-        </tr>
-        <tr>
-          <td>TerraMagna</td>
-          <td>Brasil</td>
-          <td class="c-yes">Sí</td>
-          <td class="c-strong">Muy fuerte</td>
-          <td class="c-no">No</td>
-          <td class="c-no">No</td>
-          <td class="c-strong">Muy fuerte</td>
-          <td class="c-no">No</td>
-          <td class="c-no">No</td>
-          <td>1%</td>
-        </tr>
-        <tr>
-          <td>Verqor</td>
-          <td>México</td>
-          <td class="c-yes">Sí</td>
-          <td class="c-partial">Parcial</td>
-          <td class="c-yes">Sí</td>
-          <td class="c-no">No</td>
-          <td class="c-yes">Sí</td>
-          <td class="c-partial">Parcial</td>
-          <td class="c-no">No</td>
-          <td>1%</td>
-        </tr>
-        <tr>
-          <td>ACRE</td>
-          <td>LATAM</td>
-          <td class="c-yes">Sí</td>
-          <td class="c-yes">Sí</td>
-          <td class="c-yes">Sí</td>
-          <td class="c-partial">Parcial</td>
-          <td class="c-strong">IA</td>
-          <td class="c-yes">Sí</td>
-          <td class="c-yes">Sí</td>
-          <td>4%</td>
-        </tr>
-        <tr>
-          <td>Sommos</td>
-          <td>Perú/Bolivia</td>
-          <td class="c-partial">Microcrédito</td>
-          <td class="c-partial">Parcial</td>
-          <td class="c-yes">Sí</td>
-          <td class="c-no">No</td>
-          <td class="c-yes">Sí</td>
-          <td class="c-no">No</td>
-          <td class="c-no">No</td>
-          <td>3%</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-    <div style="background:rgba(200,150,30,.08);border-left:3px solid var(--dorado);padding:20px;">
-      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--dorado);font-weight:700;margin-bottom:10px;">El mercado ya validó</div>
-      <p style="font-size:13px;color:rgba(245,240,228,.7);line-height:1.7;">Embedded finance agrícola, scoring alternativo, financiamiento por cultivo, marketplace y trade finance ya existen. Eso reduce el riesgo para inversionistas.</p>
-    </div>
-    <div style="background:rgba(107,174,127,.08);border-left:3px solid var(--verde-claro);padding:20px;">
-      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--verde-claro);font-weight:700;margin-bottom:10px;">Nuestro espacio libre</div>
-      <p style="font-size:13px;color:rgba(245,240,228,.7);line-height:1.7;">Nadie combina crédito agrícola + exportación + scoring IA + asistencia técnica + seguros + ecosistema digital para <strong style="color:var(--crema);">palta y arándano en la costa peruana</strong>.</p>
-    </div>
-  </div>
-</section>
-
-<!-- FEEDBACK -->
-<section id="feedback">
-  <div class="feedback-inner">
-    <div class="text-center">
-      <span class="section-tag" style="display:block;text-align:center;">Únete al piloto</span>
-      <h2 class="section-h2 text-center">Queremos tu <em>feedback</em></h2>
-      <p class="section-sub center" style="margin-top:12px;">Estamos validando la propuesta con 20–30 productores. Tu opinión define el producto que construiremos.</p>
-    </div>
-    <div class="feedback-form" id="feedback-form">
-      <div style="margin-bottom:24px;">
-        <div style="font-size:11px;font-weight:600;color:var(--verde-bosque);margin-bottom:16px;">Tu información</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-          <div>
-            <label class="fb-label">Nombre</label>
-            <input class="fb-input" type="text" placeholder="Tu nombre">
-          </div>
-          <div>
-            <label class="fb-label">Región</label>
-            <select class="fb-input" style="cursor:pointer;">
-              <option value="">Selecciona tu región</option>
-              <option>La Libertad</option>
-              <option>Lambayeque</option>
-              <option>Piura</option>
-              <option>Ancash</option>
-              <option>Ica</option>
-              <option>Otra</option>
-            </select>
-          </div>
-          <div>
-            <label class="fb-label">Cultivo principal</label>
-            <select class="fb-input" style="cursor:pointer;">
-              <option>Palta Hass</option>
-              <option>Arándano</option>
-              <option>Ambos</option>
-            </select>
-          </div>
-          <div>
-            <label class="fb-label">Hectáreas</label>
-            <input class="fb-input" type="number" placeholder="Ej: 25">
-          </div>
-        </div>
-      </div>
-      <hr style="border:none;border-top:1px solid var(--arena);margin-bottom:24px;">
-      <label class="fb-label">✅ 3 cosas positivas que ves en esta propuesta</label>
-      <textarea class="fb-textarea" placeholder="1. &#10;2. &#10;3. "></textarea>
-      <label class="fb-label">⚠️ 3 cosas negativas o que mejorarías</label>
-      <textarea class="fb-textarea" placeholder="1. &#10;2. &#10;3. "></textarea>
-      <label class="fb-label">❓ 3 dudas que te surgen</label>
-      <textarea class="fb-textarea" placeholder="1. &#10;2. &#10;3. "></textarea>
-      <label class="fb-label">💡 3 ideas nuevas que aportarías</label>
-      <textarea class="fb-textarea" placeholder="1. &#10;2. &#10;3. "></textarea>
-      <label class="fb-label">WhatsApp / Teléfono (opcional, para coordinar visita)</label>
-      <input class="fb-input" type="tel" placeholder="+51 9XX XXX XXX">
-      <button class="fb-submit" onclick="submitFeedback()">Enviar Feedback →</button>
-    </div>
-    <div class="fb-success" id="fb-success">
-      <div style="font-size:36px;margin-bottom:16px;">🌿</div>
-      <p>¡Gracias por tu feedback!</p>
-      <span>El equipo de Farmex Capital se pondrá en contacto contigo en los próximos días.</span>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="nav-logo">FC</div>
-      <span class="nav-name" style="color:var(--crema);">Farmex <span>Capital</span></span>
-      <div class="footer-tag">AgriFintech Integrada · Perú 2026</div>
-      <p style="font-size:12px;color:rgba(245,240,228,.35);margin-top:16px;max-width:260px;line-height:1.6;">"Convertimos ciclos agrícolas en flujo de caja predecible"</p>
-    </div>
-    <div class="footer-links">
-      <h4>Soluciones</h4>
-      <ul>
-        <li><a href="#productos">Crédito por ciclo</a></li>
-        <li><a href="#app-demo">Marketplace</a></li>
-        <li><a href="#app-demo">Scoring Agrícola</a></li>
-        <li><a href="#solucion">Seguro Paramétrico</a></li>
-        <li><a href="#solucion">Asistencia Técnica</a></li>
-      </ul>
-    </div>
-    <div class="footer-links">
-      <h4>Empresa</h4>
-      <ul>
-        <li><a href="#mercado">Mercado objetivo</a></li>
-        <li><a href="#competencia">Competencia</a></li>
-        <li><a href="#feedback">Piloto 2026</a></li>
-      </ul>
-    </div>
-    <div class="footer-links">
-      <h4>Regiones</h4>
-      <ul>
-        <li><a href="#">La Libertad</a></li>
-        <li><a href="#">Lambayeque</a></li>
-        <li><a href="#">Piura</a></li>
-        <li><a href="#">Ancash</a></li>
-        <li><a href="#">Ica</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span class="footer-copy">© 2026 Farmex Capital. Todos los derechos reservados.</span>
-    <span class="footer-region">La Libertad · Lambayeque · Piura · Ancash · Ica</span>
-  </div>
-</footer>
-
 <script>
-// Navbar scroll
-window.addEventListener('scroll',()=>{
-  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50);
-});
-
-// Cultivo tabs
-function switchCultivo(cult, btn) {
-  document.querySelectorAll('.c-tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.prod-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('panel-'+cult).classList.add('active');
-}
-
-// App screens
-function switchScreen(screen, btn) {
-  document.querySelectorAll('.app-nav-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.app-screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById('screen-'+screen).classList.add('active');
-  if(screen==='scoring'){
-    setTimeout(()=>{
-      document.querySelectorAll('.sf-fill').forEach(f=>{
-        const w=f.style.width;f.style.width='0';
-        setTimeout(()=>f.style.width=w,100);
-      });
-    },50);
-  }
-  if(screen==='credito') calcularCredito();
-}
-
-// Credit calculator
-const tasas={
-  palta:{fertilizacion:{por_ha:4500,tasa:1.8},campaña:{por_ha:12000,tasa:1.6},riego:{por_ha:8000,tasa:1.5},postcosecha:{por_ha:6500,tasa:1.9},exportacion:{por_ha:0,tasa:2.1,pct:0.8},tecnificacion:{por_ha:25000,tasa:1.4}},
-  arandano:{fertilizacion:{por_ha:5500,tasa:1.8},campaña:{por_ha:15000,tasa:1.6},riego:{por_ha:10000,tasa:1.5},postcosecha:{por_ha:8000,tasa:1.9},exportacion:{por_ha:0,tasa:2.0,pct:0.85},tecnificacion:{por_ha:45000,tasa:1.4}}
+const TITLES = {
+  dashboard:['Dashboard','Bienvenido, Raúl — Campaña Palta Hass 2026 en curso'],
+  parcelas:['Mis Parcelas','2 parcelas activas · La Libertad'],
+  creditos:['Créditos','Productos disponibles y simulador de crédito agrícola'],
+  mercado:['Mercado','Precios en tiempo real y compradores activos'],
+  scoring:['Mi Score','Scoring Agrícola Farmex AI · 760 / 1000'],
+  clima:['Clima & Riesgos','La Libertad · Actualizado hace 2 horas'],
 };
-function calcularCredito(){
-  const cult=document.getElementById('cred-cultivo').value;
-  const etapa=document.getElementById('cred-etapa').value;
-  const ha=parseFloat(document.getElementById('cred-ha').value)||1;
-  const plazo=parseInt(document.getElementById('cred-plazo').value)||8;
-  const cfg=tasas[cult][etapa];
-  let monto=cfg.por_ha*ha;
-  if(etapa==='exportacion') monto=ha*3800*12*cfg.pct;
-  const tm=cfg.tasa/100;
-  const cuota=monto*(tm*Math.pow(1+tm,plazo))/(Math.pow(1+tm,plazo)-1);
-  document.getElementById('calc-monto').textContent='S/ '+Math.round(monto).toLocaleString('es-PE');
-  document.getElementById('calc-tasa').textContent=cfg.tasa+'%';
-  document.getElementById('calc-cuota').textContent='S/ '+Math.round(cuota).toLocaleString('es-PE');
-  document.getElementById('calc-tiempo').textContent=plazo+' meses';
+function go(id,btn){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+  if(btn)btn.classList.add('active');
+  const t=TITLES[id];
+  if(t){document.getElementById('tb-title').textContent=t[0];document.getElementById('tb-sub').textContent=t[1];}
+  if(id==='parcelas'&&!window._par){initPar();window._par=1;}
+  if(id==='mercado'&&!window._mer){initMer();window._mer=1;}
+  if(id==='clima'&&!window._cli){initCli();window._cli=1;}
 }
 
-// Market filters
-document.querySelectorAll('.mfilter').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.mfilter').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-  });
+new Chart(document.getElementById('ch-precios').getContext('2d'),{
+  type:'line',
+  data:{labels:['Dic','Ene','Feb','Mar','Abr','May'],datasets:[{label:'S//kg',data:[3.60,3.75,3.90,4.00,4.07,4.20],borderColor:'#C8961E',backgroundColor:'rgba(200,150,30,.08)',borderWidth:2.5,pointBackgroundColor:'#C8961E',pointRadius:4,tension:.4,fill:true}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:11}}},y:{grid:{color:'#EEF2EE'},ticks:{font:{size:11},callback:v=>'S/ '+v.toFixed(2)},min:3.4,max:4.5}}}
 });
 
-// Feedback submit
-function submitFeedback(){
-  document.getElementById('feedback-form').style.display='none';
-  document.getElementById('fb-success').style.display='block';
+function initPar(){
+  const o=color=>({type:'bar',data:{labels:['Feb','Mar','Abr','May','Jun'],datasets:[{data:[12,18,22,28,20],backgroundColor:color,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:10}}},y:{grid:{color:'#F5F5F5'},ticks:{font:{size:10}}}}}});
+  new Chart(document.getElementById('ch-par1').getContext('2d'),o('rgba(45,122,79,.7)'));
+  new Chart(document.getElementById('ch-par2').getContext('2d'),o('rgba(200,150,30,.7)'));
+}
+function initMer(){
+  new Chart(document.getElementById('ch-mercado').getContext('2d'),{
+    type:'line',
+    data:{labels:['Dic','Ene','Feb','Mar','Abr','May'],datasets:[
+      {label:'Palta Hass (S//kg)',data:[3.60,3.75,3.90,4.00,4.07,4.20],borderColor:'#C8961E',backgroundColor:'rgba(200,150,30,.06)',borderWidth:2.5,pointRadius:4,tension:.4,fill:true},
+      {label:'Arándano ÷3',data:[4.20,4.10,4.30,4.50,4.20,4.17],borderColor:'#2D7A4F',backgroundColor:'rgba(45,122,79,.06)',borderWidth:2.5,pointRadius:4,tension:.4,fill:true}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{font:{size:11}}}},scales:{x:{grid:{display:false},ticks:{font:{size:11}}},y:{grid:{color:'#EEF2EE'},ticks:{font:{size:11},callback:v=>'S/ '+v.toFixed(2)}}}}
+  });
+}
+function initCli(){
+  new Chart(document.getElementById('ch-clima').getContext('2d'),{
+    type:'bar',
+    data:{labels:['Semana 1','Semana 2','Semana 3','Semana 4'],datasets:[{label:'Precipitación (mm)',data:[28,52,38,15],backgroundColor:['rgba(41,128,185,.6)','rgba(231,76,60,.75)','rgba(243,156,18,.65)','rgba(39,174,96,.65)'],borderRadius:6}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{size:12}}},y:{grid:{color:'#EEF2EE'},ticks:{font:{size:11},callback:v=>v+' mm'}}}}
+  });
 }
 
-// Init
-calcularCredito();
+const RATES={
+  palta:{fertilizacion:[4500,1.8],'campaña':[12000,1.6],riego:[8000,1.5],postcosecha:[6500,1.9],exportacion:[80000,2.1],tecnificacion:[25000,1.4]},
+  arandano:{fertilizacion:[5500,1.8],'campaña':[15000,1.6],riego:[10000,1.5],postcosecha:[8000,1.9],exportacion:[85000,2.0],tecnificacion:[45000,1.4]}
+};
+function simular(){
+  const cult=document.getElementById('s-cult').value;
+  const tipo=document.getElementById('s-tipo').value;
+  const ha=parseFloat(document.getElementById('s-ha').value)||0;
+  const plazo=parseInt(document.getElementById('s-plazo').value);
+  const[base,tasa]=RATES[cult][tipo];
+  const monto=ha*base;
+  const r=tasa/100;
+  const cuota=monto>0?Math.round(monto*r/(1-Math.pow(1+r,-plazo))):0;
+  document.getElementById('s-monto').textContent='S/ '+monto.toLocaleString('es-PE');
+  document.getElementById('s-tasa').textContent=tasa+'%';
+  document.getElementById('s-cuota').textContent='S/ '+cuota.toLocaleString('es-PE');
+  document.getElementById('s-tiempo').textContent=plazo+' meses';
+}
+simular();
 </script>
 </body>
 </html>
