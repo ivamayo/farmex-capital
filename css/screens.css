@@ -77,9 +77,13 @@
 
 @media (max-width: 1000px) { .enc-layout { grid-template-columns: 1fr; } }
 
-/* Ciclos de campaña — stack antes que el grid general */
-.dash-cycles { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
-@media (max-width: 1200px) { .dash-cycles { grid-template-columns: 1fr; } }
+/* Ciclos de campaña — auto-stack según espacio real disponible */
+.dash-cycles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
 
 /* ── CREDITOS ───────────────────────────────────────── */
 .prod-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 22px; }
