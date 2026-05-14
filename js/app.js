@@ -11,7 +11,7 @@ import * as vitrina    from './screens/vitrina.js';
 const SCREENS = { encuesta, dashboard, servicios, parcelas, creditos, mercado, scoring, clima, vitrina };
 
 const TITLES = {
-  encuesta:  ['Registro &amp; Encuesta', 'Valida nuestra propuesta y accede al portal de productores'],
+  encuesta:  ['Mi Perfil', 'Raúl García Mendoza · La Libertad · 32 ha · Palta Hass'],
   dashboard: ['Mi Finca',              'Buenos días, Raúl — Campaña Palta Hass 2026 en curso'],
   servicios: ['Nuestros Servicios',    'Quiénes somos y qué ofrecemos en Farmex Capital'],
   parcelas:  ['Mis Hectáreas',         '2 áreas activas · La Libertad · 32 ha en total'],
