@@ -1,3 +1,38 @@
+/* ── ENCUESTA / REGISTRO ────────────────────────────── */
+.enc-hero { background: linear-gradient(135deg, var(--g-dark), var(--g-mid)); border-radius: 12px; padding: 28px 32px; margin-bottom: 18px; }
+.enc-tag  { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-l); background: rgba(200,150,30,.15); border: 1px solid rgba(200,150,30,.3); padding: 5px 14px; border-radius: 20px; display: inline-block; margin-bottom: 14px; }
+.enc-title { font-size: clamp(22px,2.5vw,32px); font-weight: 700; color: #fff; margin-bottom: 10px; line-height: 1.2; }
+.enc-sub   { font-size: 14px; color: rgba(255,255,255,.65); line-height: 1.7; max-width: 600px; }
+
+.enc-layout { display: grid; grid-template-columns: 360px 1fr; gap: 18px; }
+.enc-left   { display: flex; flex-direction: column; gap: 0; }
+.enc-right  { min-height: 600px; }
+
+.enc-prop-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.enc-prop  { display: flex; align-items: flex-start; gap: 12px; padding: 10px; background: var(--bg); border-radius: 7px; }
+.enc-prop-ico { font-size: 20px; flex-shrink: 0; }
+.enc-prop strong { font-size: 12.5px; color: var(--txt); }
+.enc-prop span   { font-size: 11.5px; color: var(--txt-m); }
+.enc-note { background: var(--gold-pale); border-left: 3px solid var(--gold); padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 12.5px; color: var(--g-dark); font-weight: 600; }
+
+.enc-form { display: flex; flex-direction: column; gap: 12px; }
+.enc-form-group { display: flex; flex-direction: column; gap: 5px; }
+.enc-form-row   { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.enc-label  { font-size: 10.5px; font-weight: 700; color: var(--txt-s); text-transform: uppercase; letter-spacing: .4px; }
+.enc-input, .enc-select { background: var(--bg); border: 1.5px solid var(--border); color: var(--txt); padding: 9px 12px; font-size: 13px; font-family: inherit; outline: none; border-radius: 6px; width: 100%; transition: border-color .2s; }
+.enc-input:focus, .enc-select:focus { border-color: var(--g-mid); }
+.enc-btn-register { background: var(--g-dark); color: #fff; padding: 13px 20px; border: none; border-radius: 7px; font-size: 13px; font-weight: 700; cursor: pointer; transition: background .2s; margin-top: 4px; }
+.enc-btn-register:hover { background: var(--g-mid); }
+
+.enc-success { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 20px; gap: 8px; }
+.enc-success-ico { font-size: 48px; }
+.enc-success-msg { font-size: 18px; font-weight: 700; color: var(--ok); }
+.enc-success-sub { font-size: 13px; color: var(--txt-s); line-height: 1.6; max-width: 280px; }
+.enc-btn-portal  { background: var(--gold); color: var(--g-dark); padding: 11px 24px; border: none; border-radius: 7px; font-size: 12px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: background .2s; }
+.enc-btn-portal:hover { background: var(--gold-l); }
+
+@media (max-width: 1000px) { .enc-layout { grid-template-columns: 1fr; } }
+
 /* ── CREDITOS ───────────────────────────────────────── */
 .prod-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 22px; }
 .prod { background: var(--card); border-radius: 10px; box-shadow: var(--sh); padding: 18px; border-top: 4px solid var(--gold); cursor: pointer; transition: all .15s; }

@@ -1,3 +1,4 @@
+import * as encuesta   from './screens/encuesta.js';
 import * as dashboard  from './screens/dashboard.js';
 import * as servicios  from './screens/servicios.js';
 import * as parcelas   from './screens/parcelas.js';
@@ -7,9 +8,10 @@ import * as scoring    from './screens/scoring.js';
 import * as clima      from './screens/clima.js';
 import * as vitrina    from './screens/vitrina.js';
 
-const SCREENS = { dashboard, servicios, parcelas, creditos, mercado, scoring, clima, vitrina };
+const SCREENS = { encuesta, dashboard, servicios, parcelas, creditos, mercado, scoring, clima, vitrina };
 
 const TITLES = {
+  encuesta:  ['Registro &amp; Encuesta', 'Valida nuestra propuesta y accede al portal de productores'],
   dashboard: ['Mi Finca',              'Buenos días, Raúl — Campaña Palta Hass 2026 en curso'],
   servicios: ['Nuestros Servicios',    'Quiénes somos y qué ofrecemos en Farmex Capital'],
   parcelas:  ['Mis Hectáreas',         '2 áreas activas · La Libertad · 32 ha en total'],
