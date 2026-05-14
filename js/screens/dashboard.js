@@ -52,7 +52,7 @@ export const html = `
 </div>
 
 <!-- Ciclos de campaña -->
-<div class="g2" style="margin-bottom:18px;">
+<div class="dash-cycles">
 
 <!-- Ciclo Palta Hass -->
 <div class="card">
