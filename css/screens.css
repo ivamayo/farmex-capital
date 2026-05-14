@@ -67,6 +67,34 @@ select.fi:focus, input.fi:focus { border-color: var(--g-mid); }
 .sf-v    { font-size: 13px; font-weight: 700; color: var(--txt); width: 30px; text-align: right; }
 
 /* ── CLIMA ──────────────────────────────────────────── */
+.clima-kpi-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 18px; }
+.clima-kpi { background: var(--card); border-radius: 10px; box-shadow: var(--sh); padding: 16px; text-align: center; }
+.ck-ico  { font-size: 28px; margin-bottom: 6px; }
+.ck-val  { font-size: 24px; font-weight: 700; color: var(--txt); line-height: 1; }
+.ck-lbl  { font-size: 10.5px; color: var(--txt-m); text-transform: uppercase; letter-spacing: .5px; margin: 5px 0 6px; }
+.ck-ref  { font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 20px; display: inline-block; }
+.ck-ref.ok   { background: #E8F8EE; color: var(--ok); }
+.ck-ref.warn { background: #FEF9E7; color: var(--warn); }
+
+.cultivo-alert-list { display: flex; flex-direction: column; gap: 12px; }
+.cult-alert { border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+.cult-alert.danger { border-left: 4px solid var(--err); }
+.cult-alert.warning { border-left: 4px solid var(--warn); }
+.cult-alert.ok      { border-left: 4px solid var(--ok); }
+.cult-alert.info    { border-left: 4px solid var(--info); }
+.ca-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: var(--bg); }
+.ca-ico    { font-size: 20px; flex-shrink: 0; }
+.ca-title  { font-size: 13px; font-weight: 700; color: var(--txt); }
+.ca-zone   { font-size: 11px; color: var(--txt-m); margin-top: 1px; }
+.ca-badge  { margin-left: auto; font-size: 9px; font-weight: 800; padding: 3px 10px; border-radius: 20px; flex-shrink: 0; letter-spacing: .5px; }
+.ca-badge.red   { background: #FDEEEE; color: var(--err); }
+.ca-badge.warn  { background: #FEF9E7; color: var(--warn); }
+.ca-badge.green { background: #E8F8EE; color: var(--ok); }
+.ca-badge.blue  { background: #E8F4FD; color: var(--info); }
+.ca-body   { padding: 12px 14px; display: flex; flex-direction: column; gap: 7px; }
+.ca-impact { font-size: 12px; color: var(--txt-s); line-height: 1.6; }
+.ca-action { font-size: 12px; font-weight: 600; color: var(--g-dark); background: var(--bg); padding: 8px 12px; border-radius: 6px; border-left: 3px solid var(--g-mid); margin-top: 4px; }
+
 .wth-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 18px; }
 .wth     { background: var(--card); border-radius: 10px; box-shadow: var(--sh); padding: 16px; text-align: center; }
 .wth-day { font-size: 11px; font-weight: 600; color: var(--txt-s); margin-bottom: 7px; }

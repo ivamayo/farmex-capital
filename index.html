@@ -1,648 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farmex Capital — El Portal de Productores del Perú</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,900;1,300;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --vb:#0F3022;--vc:#1E5C3A;--vh:#3A8B57;--vcl:#6BAE7F;
-  --do:#C8961E;--dl:#E8B84B;--dp:#F5DFA0;
-  --cr:#F5F0E4;--ar:#EAE0CC;--bl:#FAFAF7;--ng:#0A1A0E;
-  --gs:#8A9E8E;--gd:#3D4D40;--rj:#C0392B;
-  --ft:'Fraunces',Georgia,serif;--fb:'DM Sans',system-ui,sans-serif;
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:var(--fb);background:var(--bl);color:var(--ng);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
-img{display:block;max-width:100%;}a{text-decoration:none;}button{cursor:pointer;font-family:var(--fb);}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmex Capital · Portal del Productor</title>
 
-/* NAVBAR */
-#nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:76px;background:rgba(10,26,14,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(200,150,30,.2);transition:box-shadow .3s;}
-#nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.5);}
-.n-brand{display:flex;flex-direction:column;gap:1px;}
-.n-name{font-family:var(--ft);font-size:24px;font-weight:900;color:var(--cr);letter-spacing:2px;text-transform:uppercase;line-height:1;}
-.n-name span{color:var(--dl);}
-.n-sub{font-size:8px;letter-spacing:4px;color:rgba(245,240,228,.4);text-transform:uppercase;}
-.n-links{display:flex;gap:28px;list-style:none;}
-.n-links a{color:rgba(245,240,228,.6);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;transition:color .2s;}
-.n-links a:hover{color:var(--dl);}
-.n-cta{background:var(--do);color:var(--vb);padding:10px 24px;border:none;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);transition:background .2s,transform .15s;}
-.n-cta:hover{background:var(--dl);transform:translateY(-1px);}
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-/* HERO */
-#hero{position:relative;min-height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:128px 56px 88px;}
-.hbg{position:absolute;inset:0;background:linear-gradient(150deg,rgba(10,26,14,.93) 0%,rgba(15,48,34,.78) 52%,rgba(30,92,58,.88) 100%),url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1800&q=85') center/cover no-repeat;}
-.hgrid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(200,150,30,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(200,150,30,.04) 1px,transparent 1px);background-size:80px 80px;}
-.hi{position:relative;z-index:2;max-width:800px;}
-.h-eye{display:inline-flex;align-items:center;gap:10px;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--dl);font-weight:700;border:1px solid rgba(200,150,30,.3);padding:7px 18px;margin-bottom:32px;animation:fu .7s ease both;}
-.h-dot{width:6px;height:6px;border-radius:50%;background:var(--vcl);animation:pulse 2.2s ease-in-out infinite;}
-.h-h1{font-family:var(--ft);font-size:clamp(40px,5.5vw,78px);font-weight:900;line-height:1.04;color:var(--cr);animation:fu .85s .06s ease both;}
-.h-h1 em{color:var(--dl);font-style:italic;}
-.h-l2{font-family:var(--ft);font-size:clamp(40px,5.5vw,78px);font-weight:300;font-style:italic;color:var(--vcl);display:block;animation:fu .9s .12s ease both;}
-.h-sub{font-size:16px;font-weight:300;color:rgba(245,240,228,.72);max-width:540px;line-height:1.8;margin:24px 0 36px;animation:fu 1s .24s ease both;}
-.h-chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:44px;animation:fu 1.05s .3s ease both;}
-.chip{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.06);border:1px solid rgba(200,150,30,.22);padding:7px 14px;font-size:11px;color:rgba(245,240,228,.8);font-weight:500;}
-.cdot{width:5px;height:5px;border-radius:50%;background:var(--do);}
-.h-btns{display:flex;gap:14px;flex-wrap:wrap;animation:fu 1.1s .36s ease both;}
-.btn-p{background:var(--do);color:var(--vb);padding:17px 42px;border:none;display:inline-block;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);transition:background .2s,transform .15s,box-shadow .2s;}
-.btn-p:hover{background:var(--dl);transform:translateY(-2px);box-shadow:0 12px 36px rgba(200,150,30,.35);color:var(--vb);}
-.btn-g{background:transparent;color:var(--cr);padding:16px 38px;border:1.5px solid rgba(245,240,228,.28);display:inline-block;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;transition:border-color .2s,color .2s;}
-.btn-g:hover{border-color:var(--do);color:var(--dl);}
-.h-quote{position:absolute;bottom:48px;right:56px;background:rgba(10,26,14,.85);border-left:3px solid var(--do);padding:16px 22px;max-width:380px;animation:fu 1.1s .4s ease both;}
-.h-quote p{font-family:var(--ft);font-size:14px;font-style:italic;color:var(--cr);line-height:1.6;}
-.h-quote cite{font-size:10px;letter-spacing:2px;color:var(--do);text-transform:uppercase;display:block;margin-top:8px;}
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/screens.css">
 
-/* STATS */
-.stats{background:var(--vb);border-bottom:3px solid var(--do);display:flex;justify-content:center;}
-.st{flex:1;max-width:200px;padding:28px 14px;text-align:center;border-right:1px solid rgba(107,174,127,.1);transition:background .3s;}
-.st:last-child{border-right:none;}.st:hover{background:rgba(200,150,30,.06);}
-.st-n{font-family:var(--ft);font-size:32px;font-weight:600;color:var(--dl);line-height:1;display:block;}
-.st-l{font-size:9.5px;letter-spacing:2px;color:var(--gs);text-transform:uppercase;margin-top:6px;display:block;}
-
-/* SECTIONS */
-section{padding:88px 56px;}
-.stag{font-size:10px;letter-spacing:4px;color:var(--vh);text-transform:uppercase;font-weight:700;margin-bottom:14px;display:block;}
-.stag.lt{color:var(--do);}
-.sh2{font-family:var(--ft);font-size:clamp(28px,3.5vw,48px);font-weight:600;color:var(--vb);margin-bottom:14px;line-height:1.15;}
-.sh2.lt{color:var(--cr);}.sh2 em{color:var(--do);font-style:italic;}
-.ssub{font-size:15px;color:var(--gs);font-weight:300;max-width:560px;line-height:1.78;}
-.ssub.c{margin:0 auto;text-align:center;}.ssub.lt{color:rgba(245,240,228,.55);}
-.tc{text-align:center;}
-
-/* SERVICIOS */
-#servicios{background:var(--bl);}
-.srv-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ar);margin-top:52px;border:1px solid var(--ar);}
-.srv-c{background:var(--bl);padding:32px 28px;transition:background .2s;position:relative;overflow:hidden;}
-.srv-c::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--do);transform:scaleX(0);transition:transform .3s;}
-.srv-c:hover{background:var(--cr);}.srv-c:hover::before{transform:scaleX(1);}
-.srv-ico{font-size:36px;margin-bottom:16px;display:block;}
-.srv-n{font-family:var(--ft);font-size:20px;font-weight:600;color:var(--vb);margin-bottom:10px;}
-.srv-d{font-size:13px;color:var(--gd);line-height:1.7;margin-bottom:14px;}
-.srv-lnk{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--do);}
-
-/* QUIÉNES SOMOS */
-#nosotros{background:var(--cr);}
-.nos-lay{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;max-width:1100px;margin:0 auto;}
-.nos-mis{background:var(--vb);padding:32px 36px;}
-.nos-mis-t{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--do);font-weight:700;margin-bottom:16px;}
-.nos-mis-q{font-family:var(--ft);font-size:20px;font-style:italic;font-weight:300;color:var(--cr);line-height:1.55;margin-bottom:24px;}
-.nos-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.nos-stat{border-left:2px solid var(--do);padding-left:12px;}
-.nos-stat.g{border-left-color:var(--vcl);}
-.nos-stat-v{font-family:var(--ft);font-size:22px;font-weight:700;color:var(--dl);}
-.nos-stat-l{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--gs);margin-top:2px;}
-
-/* CLIMA */
-#clima{background:var(--vb);}
-.rg-g{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:40px;}
-.rg-c{background:rgba(255,255,255,.04);border:1px solid rgba(200,150,30,.15);padding:20px 16px;transition:border-color .2s,background .2s;}
-.rg-c:hover{border-color:rgba(200,150,30,.4);background:rgba(255,255,255,.06);}
-.rg-n{font-family:var(--ft);font-size:15px;font-weight:600;color:var(--cr);margin-bottom:4px;}
-.rg-t{font-size:10px;color:var(--gs);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
-.rg-tmp{font-size:20px;font-weight:700;color:var(--dl);margin-bottom:8px;}
-.rg-al{font-size:11px;font-weight:600;margin-bottom:8px;}
-.al-ok{color:var(--vcl);}.al-w{color:var(--dl);}.al-r{color:#E74C3C;}
-.rg-tags{display:flex;gap:4px;flex-wrap:wrap;}
-.rc-tag{font-size:9px;font-weight:700;background:rgba(200,150,30,.12);border:1px solid rgba(200,150,30,.25);color:rgba(245,240,228,.7);padding:2px 8px;letter-spacing:.5px;}
-.risk-tbl{border:1px solid rgba(200,150,30,.2);margin-top:8px;}
-.rt-hd{display:grid;grid-template-columns:1.5fr 1fr 1.5fr;background:rgba(200,150,30,.1);padding:12px 18px;}
-.rt-c{font-size:10px;font-weight:700;color:var(--do);text-transform:uppercase;letter-spacing:1px;}
-.rt-r{display:grid;grid-template-columns:1.5fr 1fr 1.5fr;padding:12px 18px;border-top:1px solid rgba(255,255,255,.04);align-items:start;}
-.rt-r:hover{background:rgba(255,255,255,.02);}
-.rt-ri{font-size:13px;font-weight:600;color:var(--cr);}
-.rt-nv{font-size:11px;font-weight:700;}
-.nv-a{color:#E74C3C;}.nv-m{color:var(--dl);}.nv-b{color:var(--vcl);}
-.rt-im{font-size:11.5px;color:rgba(245,240,228,.55);line-height:1.5;}
-
-/* SCORING */
-#scoring{background:var(--cr);}
-.sc-lay{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;max-width:1100px;margin:0 auto;}
-.sc-iw{position:relative;}
-.sc-img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:saturate(.9);}
-.sc-badge{position:absolute;bottom:-22px;left:-22px;background:var(--vb);border:3px solid var(--do);padding:20px 24px;text-align:center;}
-.sc-bn{font-family:var(--ft);font-size:34px;font-weight:900;color:var(--do);line-height:1;}
-.sc-bl{font-size:9.5px;letter-spacing:2px;color:var(--cr);text-transform:uppercase;margin-top:3px;}
-.sc-bank{background:rgba(192,57,43,.07);border-left:3px solid var(--rj);padding:14px 18px;margin-bottom:20px;}
-.sc-bank-t{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--rj);font-weight:700;margin-bottom:5px;}
-.sc-bank-d{font-size:13px;color:var(--gd);line-height:1.6;}
-.sc-arr{font-size:22px;text-align:center;margin:18px 0;color:var(--do);}
-.sc-fx{background:var(--vb);padding:20px 24px;border-left:3px solid var(--vcl);margin-bottom:20px;}
-.sc-fx-t{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--vcl);font-weight:700;margin-bottom:10px;}
-.sc-vars{display:flex;flex-wrap:wrap;gap:7px;}
-.sc-var{font-size:10.5px;color:rgba(245,240,228,.85);font-weight:500;background:rgba(255,255,255,.06);border:1px solid rgba(107,174,127,.25);padding:4px 11px;}
-.sc-q{font-family:var(--ft);font-size:16px;font-style:italic;font-weight:300;color:var(--vc);border-left:3px solid var(--do);padding-left:18px;line-height:1.55;}
-
-/* ASISTENCIA */
-#asistencia{background:var(--vb);}
-.ag-g{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;}
-.ag-c{background:rgba(255,255,255,.04);border:1px solid rgba(200,150,30,.15);padding:28px 24px;text-align:center;transition:border-color .2s;}
-.ag-c:hover{border-color:rgba(200,150,30,.4);}
-.ag-av{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--vc),var(--vh));display:flex;align-items:center;justify-content:center;font-family:var(--ft);font-size:22px;font-weight:700;color:var(--dl);margin:0 auto 14px;border:2px solid rgba(200,150,30,.3);}
-.ag-n{font-family:var(--ft);font-size:16px;font-weight:600;color:var(--cr);margin-bottom:4px;}
-.ag-e{font-size:11px;color:var(--do);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
-.ag-r{font-size:12px;color:var(--gs);margin-bottom:10px;}
-.ag-x{font-size:11px;color:var(--vcl);font-weight:600;}
-
-/* MARKETPLACE */
-#marketplace{background:var(--ng);}
-.mp-g{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.mp-c{background:rgba(255,255,255,.04);border:1px solid rgba(200,150,30,.12);overflow:hidden;transition:border-color .2s,transform .2s;}
-.mp-c:hover{border-color:rgba(200,150,30,.35);transform:translateY(-4px);}
-.mp-iw{overflow:hidden;position:relative;}
-.mp-img{width:100%;height:200px;object-fit:cover;filter:saturate(.9);transition:transform .4s,filter .3s;display:block;}
-.mp-c:hover .mp-img{transform:scale(1.04);filter:saturate(1.1);}
-.mp-b{position:absolute;top:12px;left:12px;background:rgba(10,26,14,.88);border:1px solid rgba(200,150,30,.35);padding:4px 12px;font-size:10px;font-weight:700;color:var(--dl);letter-spacing:1px;text-transform:uppercase;}
-.mp-body{padding:20px;}
-.mp-name{font-family:var(--ft);font-size:17px;font-weight:600;color:var(--cr);margin-bottom:14px;}
-.mp-dl{list-style:none;margin-bottom:14px;}
-.mp-dl li{font-size:12px;color:rgba(245,240,228,.6);padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:8px;}
-.mp-dl li strong{color:rgba(245,240,228,.85);font-weight:600;}
-.mp-sc{font-size:11px;font-weight:700;color:var(--dl);background:rgba(200,150,30,.08);border:1px solid rgba(200,150,30,.2);padding:7px 12px;margin-bottom:14px;}
-.mp-cta{width:100%;background:transparent;border:1px solid rgba(200,150,30,.35);color:var(--dl);padding:11px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;transition:background .2s,color .2s;}
-.mp-cta:hover{background:var(--do);color:var(--vb);}
-
-/* VITRINA */
-#vit{background:var(--vc);position:relative;overflow:hidden;}
-#vit::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1560493676-04071c5f467b?w=1200&q=80') center/cover no-repeat;opacity:.12;}
-.vit-in{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1100px;margin:0 auto;}
-.vit-h2{font-family:var(--ft);font-size:clamp(28px,3vw,44px);font-weight:600;color:var(--cr);margin-bottom:16px;line-height:1.15;}
-.vit-h2 em{color:var(--dl);font-style:italic;}
-.vit-p{font-size:14.5px;font-weight:300;color:rgba(245,240,228,.72);line-height:1.75;margin-bottom:32px;}
-.vit-ul{list-style:none;margin-bottom:36px;}
-.vit-ul li{font-size:13px;color:rgba(245,240,228,.85);padding:7px 0;display:flex;align-items:flex-start;gap:10px;border-bottom:1px solid rgba(255,255,255,.07);}
-.vit-ul li::before{content:'✓';color:var(--dl);font-weight:700;flex-shrink:0;}
-.vc-card{background:rgba(10,26,14,.65);border:1px solid rgba(200,150,30,.25);padding:24px;}
-.vc-bdg{display:inline-flex;align-items:center;gap:7px;background:rgba(200,150,30,.15);border:1px solid rgba(200,150,30,.3);padding:5px 14px;font-size:10px;font-weight:700;color:var(--dl);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;}
-.vc-fn{font-family:var(--ft);font-size:20px;font-weight:600;color:var(--cr);margin-bottom:4px;}
-.vc-s{font-size:12px;color:rgba(245,240,228,.55);margin-bottom:16px;}
-.vc-sc{display:flex;align-items:center;gap:12px;background:rgba(200,150,30,.08);border:1px solid rgba(200,150,30,.2);padding:12px 16px;margin-bottom:16px;}
-.vc-sn{font-family:var(--ft);font-size:28px;font-weight:700;color:var(--dl);}
-.vc-sl{font-size:10px;color:var(--gs);letter-spacing:1px;text-transform:uppercase;}
-.vc-sc-cat{font-size:12px;font-weight:700;color:var(--vcl);}
-.vc-tags{display:flex;gap:6px;flex-wrap:wrap;}
-.vc-tg{font-size:10px;font-weight:700;background:rgba(107,174,127,.1);border:1px solid rgba(107,174,127,.25);color:var(--vcl);padding:3px 10px;}
-
-/* CONTACTO */
-#contacto{background:var(--vb);border-top:3px solid var(--do);text-align:center;}
-.ct-h2{font-family:var(--ft);font-size:clamp(28px,3.5vw,52px);font-weight:600;color:var(--cr);margin-bottom:16px;}
-.ct-h2 em{color:var(--dl);font-style:italic;}
-.ct-p{font-size:15px;color:rgba(245,240,228,.6);max-width:500px;margin:0 auto 36px;line-height:1.7;}
-.ct-form{display:flex;gap:12px;max-width:480px;margin:0 auto 20px;flex-wrap:wrap;justify-content:center;}
-.ct-in{flex:1;min-width:200px;background:rgba(255,255,255,.06);border:1.5px solid rgba(200,150,30,.25);color:var(--cr);padding:14px 18px;font-size:13px;font-family:var(--fb);outline:none;transition:border-color .2s;}
-.ct-in:focus{border-color:var(--do);}
-.ct-in::placeholder{color:rgba(245,240,228,.35);}
-.ct-btn{background:var(--do);color:var(--vb);padding:14px 28px;border:none;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);transition:background .2s;}
-.ct-btn:hover{background:var(--dl);}
-.ct-note{font-size:11px;color:rgba(245,240,228,.3);}
-
-/* FOOTER */
-footer{background:var(--ng);padding:48px 56px 32px;border-top:1px solid rgba(200,150,30,.1);}
-.ft-in{display:flex;justify-content:space-between;align-items:flex-start;gap:32px;flex-wrap:wrap;margin-bottom:36px;}
-.ft-bn{font-family:var(--ft);font-size:18px;font-weight:700;color:var(--cr);margin-bottom:3px;}
-.ft-bn span{color:var(--dl);}
-.ft-bs{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gs);margin-bottom:12px;}
-.ft-bd{font-size:12.5px;color:rgba(245,240,228,.4);line-height:1.65;max-width:260px;}
-.ft-lk h4{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--do);margin-bottom:14px;}
-.ft-lk ul{list-style:none;}
-.ft-lk li{margin-bottom:8px;}
-.ft-lk a{font-size:12.5px;color:rgba(245,240,228,.4);transition:color .2s;}
-.ft-lk a:hover{color:var(--dl);}
-.ft-bot{border-top:1px solid rgba(255,255,255,.06);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
-.ft-copy{font-size:11px;color:rgba(245,240,228,.25);}
-.ft-reg{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(200,150,30,.4);}
-
-@keyframes fu{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
-
-@media(max-width:1100px){.rg-g{grid-template-columns:1fr 1fr;}.mp-g{grid-template-columns:1fr 1fr;}}
-@media(max-width:900px){
-  #nav{padding:0 20px;}.n-links{display:none;}
-  section{padding:60px 20px;}#hero{padding:100px 20px 60px;}
-  .h-quote,.rt-c:not(:first-child),.rt-nv,.rt-im{display:none;}
-  .srv-g,.sc-lay,.vit-in,.nos-lay{grid-template-columns:1fr;}
-  .ag-g,.mp-g,.rg-g{grid-template-columns:1fr;}
-  .ft-in{flex-direction:column;}
-}
-</style>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
-<nav id="nav">
-  <div class="n-brand">
-    <div class="n-name">Farmex <span>Capital</span></div>
-    <div class="n-sub">El Portal de Productores · Perú</div>
-  </div>
-  <ul class="n-links">
-    <li><a href="#nosotros">Nosotros</a></li>
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#clima">Clima</a></li>
-    <li><a href="#marketplace">Marketplace</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-  </ul>
-  <a href="#contacto" class="n-cta">Únete al Piloto</a>
-</nav>
+  <!-- SIDEBAR -->
+  <aside class="sb">
+    <div class="sb-logo">
+      <div class="sb-brand-main">FARMEX CAPITAL</div>
+      <div class="sb-brand-tagline">EL PORTAL DE PRODUCTORES</div>
+      <div class="sb-brand-peru">🌿 Perú · 2026</div>
+    </div>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hbg"></div><div class="hgrid"></div>
-  <div class="hi">
-    <div class="h-eye"><div class="h-dot"></div>AgriFintech · Perú 2026</div>
-    <h1 class="h-h1">Convertimos ciclos <em>agrícolas</em></h1>
-    <span class="h-l2">en flujo de caja predecible</span>
-    <p class="h-sub">La infraestructura financiera especializada para pequeños y medianos agroexportadores de palta y arándano en la costa del Perú. Porque el productor piensa por ciclos, no por trimestres.</p>
-    <div class="h-chips">
-      <div class="chip"><div class="cdot"></div>Costa del Perú</div>
-      <div class="chip"><div class="cdot"></div>Palta &amp; Arándano</div>
-      <div class="chip"><div class="cdot"></div>10–60 hectáreas</div>
-      <div class="chip"><div class="cdot"></div>Scoring Agrícola IA</div>
+    <div class="sb-sec">
+      <div class="sb-lbl">Principal</div>
+      <button class="ni" data-screen="dashboard"> <div class="ni-ico">🏠</div><span>Mi Finca</span></button>
+      <button class="ni" data-screen="servicios">  <div class="ni-ico">🛠️</div><span>Nuestros Servicios</span></button>
+      <button class="ni" data-screen="parcelas">  <div class="ni-ico">🌱</div><span>Mis Hectáreas</span></button>
+      <button class="ni" data-screen="creditos">  <div class="ni-ico">💰</div><span>Créditos</span><span class="ni-badge">2</span></button>
+      <button class="ni" data-screen="mercado">   <div class="ni-ico">📈</div><span>Mercado</span></button>
+      <button class="ni" data-screen="vitrina">   <div class="ni-ico">🌿</div><span>Mi Vitrina</span></button>
     </div>
-    <div class="h-btns">
-      <a href="#contacto" class="btn-p">Quiero financiamiento →</a>
-      <a href="#servicios" class="btn-g">Ver cómo funciona</a>
-    </div>
-  </div>
-  <div class="h-quote">
-    <p>"No necesito un banco. Necesito un socio que entienda mi cultivo."</p>
-    <cite>— Raúl, Productor de Palta · La Libertad</cite>
-  </div>
-</section>
 
-<!-- STATS -->
-<div class="stats">
-  <div class="st"><span class="st-n">35,000</span><span class="st-l">Hectáreas TAM</span></div>
-  <div class="st"><span class="st-n">$357M</span><span class="st-l">Mercado anual</span></div>
-  <div class="st"><span class="st-n">5</span><span class="st-l">Regiones costeras</span></div>
-  <div class="st"><span class="st-n">6</span><span class="st-l">Productos por ciclo</span></div>
-  <div class="st"><span class="st-n">20–30%</span><span class="st-l">Pérdidas evitables</span></div>
-</div>
+    <div class="sb-sec">
+      <div class="sb-lbl">Análisis</div>
+      <button class="ni" data-screen="scoring"><div class="ni-ico">⭐</div><span>Mi Score</span></button>
+      <button class="ni" data-screen="clima">  <div class="ni-ico">🌤️</div><span>Clima &amp; Riesgos</span><span class="ni-badge red">!</span></button>
+    </div>
 
-<!-- QUIÉNES SOMOS -->
-<section id="nosotros">
-  <div class="nos-lay">
-    <div>
-      <span class="stag">Quiénes somos</span>
-      <h2 class="sh2">La infraestructura financiera que el agroexportador peruano <em>nunca tuvo</em></h2>
-      <p class="ssub" style="margin-bottom:20px;">Farmex Capital es la primera plataforma AgriFintech especializada en pequeños y medianos agroexportadores de palta y arándano en la costa del Perú.</p>
-      <p class="ssub">Combinamos financiamiento inteligente, data agrícola, scoring alternativo, asistencia técnica, marketplace y conexión comercial en un solo lugar.</p>
-    </div>
-    <div class="nos-mis">
-      <div class="nos-mis-t">🎯 Nuestra misión</div>
-      <div class="nos-mis-q">"Convertir ciclos agrícolas en flujo de caja predecible, siendo el habilitador financiero del pequeño y mediano agroexportador peruano."</div>
-      <div class="nos-grid">
-        <div class="nos-stat"><div class="nos-stat-v">2026</div><div class="nos-stat-l">Año de lanzamiento</div></div>
-        <div class="nos-stat g"><div class="nos-stat-v">Perú</div><div class="nos-stat-l">Inicio de operaciones</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICIOS -->
-<section id="servicios">
-  <div class="tc">
-    <span class="stag">Nuestros servicios</span>
-    <h2 class="sh2 tc">Una plataforma completa<br><em>para el agroexportador</em></h2>
-    <p class="ssub c" style="margin-top:12px;">No es solo un crédito. Es la infraestructura financiera, técnica y comercial que el productor peruano necesitaba y nunca tuvo.</p>
-  </div>
-  <div class="srv-g">
-    <div class="srv-c">
-      <span class="srv-ico">💰</span>
-      <div class="srv-n">Financiamiento Agrícola</div>
-      <div class="srv-d">Crédito diseñado para cada etapa de tu campaña: fertilización, riego, postcosecha y exportación. Hasta S/ 25,000/ha con plazos alineados a tu cosecha, no al calendario bancario.</div>
-      <a href="#contacto" class="srv-lnk">Solicitar crédito →</a>
-    </div>
-    <div class="srv-c">
-      <span class="srv-ico">📡</span>
-      <div class="srv-n">Data Agrícola &amp; Clima</div>
-      <div class="srv-d">Información satelital y climática en tiempo real para las 5 regiones clave. Alertas específicas para palta y arándano según el riesgo de cada semana.</div>
-      <a href="#clima" class="srv-lnk">Ver regiones →</a>
-    </div>
-    <div class="srv-c">
-      <span class="srv-ico">⭐</span>
-      <div class="srv-n">Scoring Alternativo IA</div>
-      <div class="srv-d">Te evaluamos por tu tierra, tus campañas y tu historial productivo — no por tu historial bancario. Accede a financiamiento aunque Infocorp te cierre la puerta.</div>
-      <a href="#scoring" class="srv-lnk">Ver cómo funciona →</a>
-    </div>
-    <div class="srv-c">
-      <span class="srv-ico">👨‍🌾</span>
-      <div class="srv-n">Asistencia Técnica</div>
-      <div class="srv-d">Red de agrónomos certificados de Farmex Perú especializados en palta Hass y arándano. Visitas de campo y soporte para reducir pérdidas del 20–30%.</div>
-      <a href="#asistencia" class="srv-lnk">Conocer al equipo →</a>
-    </div>
-    <div class="srv-c">
-      <span class="srv-ico">🤝</span>
-      <div class="srv-n">Marketplace &amp; Conexión Comercial</div>
-      <div class="srv-d">Tu producción directamente con exportadores, supermercados e importadores internacionales. Muestra tu cultivo con foto, ubicación, clima y certificaciones.</div>
-      <a href="#marketplace" class="srv-lnk">Ver compradores →</a>
-    </div>
-    <div class="srv-c">
-      <span class="srv-ico">🛡️</span>
-      <div class="srv-n">Seguro Paramétrico</div>
-      <div class="srv-d">Cobertura climática automática ante El Niño, lluvias y sequías. Pago activado solo, sin trámites, en menos de 72 horas cuando superas el umbral de riesgo.</div>
-      <a href="#contacto" class="srv-lnk">Activar cobertura →</a>
-    </div>
-  </div>
-</section>
-
-<!-- CLIMA & DATA AGRÍCOLA -->
-<section id="clima">
-  <div style="max-width:600px;margin-bottom:52px;">
-    <span class="stag lt">Data Agrícola</span>
-    <h2 class="sh2 lt">Clima e <em>índices</em><br>por región del Perú</h2>
-    <p class="ssub lt" style="margin-top:12px;">Monitoreo satelital para las 5 zonas clave de la costa. Alertas específicas para palta y arándano según el riesgo de cada cultivo cada semana.</p>
-  </div>
-  <div class="rg-g">
-    <div class="rg-c">
-      <div class="rg-n">📍 La Libertad</div>
-      <div class="rg-t">Valle costero · Virú, Chao</div>
-      <div class="rg-tmp">18–24°C</div>
-      <div class="rg-al al-r">⚠ Lluvias esta semana</div>
-      <div class="rg-tags"><span class="rc-tag">Palta Hass</span><span class="rc-tag">Arándano</span></div>
-    </div>
-    <div class="rg-c">
-      <div class="rg-n">📍 Ica</div>
-      <div class="rg-t">Costa árida · Chincha, Pisco</div>
-      <div class="rg-tmp">20–28°C</div>
-      <div class="rg-al al-ok">✅ Condiciones normales</div>
-      <div class="rg-tags"><span class="rc-tag">Palta</span><span class="rc-tag">Arándano</span><span class="rc-tag">Espárrago</span></div>
-    </div>
-    <div class="rg-c">
-      <div class="rg-n">📍 Piura</div>
-      <div class="rg-t">Costa norte · Tambogrande</div>
-      <div class="rg-tmp">24–32°C</div>
-      <div class="rg-al al-w">⚠ Calor sobre lo normal</div>
-      <div class="rg-tags"><span class="rc-tag">Mango</span><span class="rc-tag">Limón</span><span class="rc-tag">Palta</span></div>
-    </div>
-    <div class="rg-c">
-      <div class="rg-n">📍 Lambayeque</div>
-      <div class="rg-t">Costa norte · Motupe</div>
-      <div class="rg-tmp">20–26°C</div>
-      <div class="rg-al al-ok">✅ Condiciones normales</div>
-      <div class="rg-tags"><span class="rc-tag">Arándano</span><span class="rc-tag">Palta</span><span class="rc-tag">Pimiento</span></div>
-    </div>
-    <div class="rg-c">
-      <div class="rg-n">📍 Ancash</div>
-      <div class="rg-t">Costa central · Huarmey</div>
-      <div class="rg-tmp">17–22°C</div>
-      <div class="rg-al al-ok">✅ Condiciones normales</div>
-      <div class="rg-tags"><span class="rc-tag">Palta</span><span class="rc-tag">Maracuyá</span></div>
-    </div>
-  </div>
-  <div class="risk-tbl">
-    <div class="rt-hd">
-      <div class="rt-c">Riesgo climático</div>
-      <div class="rt-c">Nivel actual</div>
-      <div class="rt-c">Impacto en palta y arándano</div>
-    </div>
-    <div class="rt-r">
-      <div class="rt-ri">🌧️ Lluvias excesivas</div>
-      <div class="rt-nv nv-a">● ALTO · La Libertad</div>
-      <div class="rt-im"><strong>Palta:</strong> caída de frutos, daño en floración, aparición de hongos<br><strong>Arándano:</strong> botrytis, pudrición de raíces, pérdida de planta</div>
-    </div>
-    <div class="rt-r">
-      <div class="rt-ri">🌡️ Calor extremo</div>
-      <div class="rt-nv nv-m">● MEDIO · Piura</div>
-      <div class="rt-im"><strong>Palta:</strong> quemadura de sol en fruto, reducción de calibre hasta 30%<br><strong>Arándano:</strong> estrés hídrico severo, fruto pequeño y bajo contenido de azúcar</div>
-    </div>
-    <div class="rt-r">
-      <div class="rt-ri">💨 Fenómeno El Niño</div>
-      <div class="rt-nv nv-b">● BAJO · Costa general</div>
-      <div class="rt-im">ONI +0.4°C — Sin alerta activa. <strong>Palta y arándano:</strong> monitoreo preventivo activado en todas las zonas costeras.</div>
-    </div>
-    <div class="rt-r">
-      <div class="rt-ri">🌊 Sequía / Déficit hídrico</div>
-      <div class="rt-nv nv-b">● BAJO · Ica, Ancash</div>
-      <div class="rt-im"><strong>Palta:</strong> menor rendimiento si supera 21 días sin riego adecuado<br><strong>Arándano:</strong> alto impacto en calibre y sabor del fruto final</div>
-    </div>
-  </div>
-</section>
-
-<!-- SCORING -->
-<section id="scoring">
-  <div class="sc-lay">
-    <div class="sc-iw">
-      <img class="sc-img" src="https://images.unsplash.com/photo-1560493676-04071c5f467b?w=600&q=80" alt="Productor agrícola peruano">
-      <div class="sc-badge"><div class="sc-bn">760</div><div class="sc-bl">Score Farmex</div></div>
-    </div>
-    <div>
-      <span class="stag">Scoring Alternativo IA</span>
-      <h2 class="sh2">El banco no te entiende.<br><em>Nosotros sí.</em></h2>
-      <p class="ssub" style="margin-bottom:28px;">Este agricultor ya invirtió en ser mejor que el promedio. Pero el sistema lo sigue tratando como promedio.</p>
-      <div class="sc-bank">
-        <div class="sc-bank-t">✗ Cómo te evalúa el banco</div>
-        <div class="sc-bank-d">Solo mira tu historial en Infocorp. Si no tienes préstamos previos o tuviste un atraso, te cierra la puerta — sin importar que tengas 30 hectáreas productivas y 5 campañas exitosas.</div>
-      </div>
-      <div class="sc-arr">↓</div>
-      <div class="sc-fx">
-        <div class="sc-fx-t">✓ Cómo te evalúa Farmex</div>
-        <div class="sc-vars">
-          <span class="sc-var">🌾 Historial productivo</span>
-          <span class="sc-var">🏡 Tenencia de tierra</span>
-          <span class="sc-var">📡 NDVI satelital</span>
-          <span class="sc-var">💳 Pagos previos</span>
-          <span class="sc-var">🌍 Compradores activos</span>
-          <span class="sc-var">📄 Certificaciones</span>
+    <div class="sb-bot">
+      <div class="uc">
+        <div class="uc-av">RG</div>
+        <div>
+          <div class="uc-name">Raúl García</div>
+          <div class="uc-role">La Libertad · 32 ha · Palta</div>
         </div>
       </div>
-      <div class="sc-q">"Tu campo habla por ti. Nosotros lo escuchamos."</div>
     </div>
-  </div>
-</section>
+  </aside>
 
-<!-- ASISTENCIA TÉCNICA -->
-<section id="asistencia">
-  <div class="tc" style="margin-bottom:48px;">
-    <span class="stag lt">Asistencia Técnica</span>
-    <h2 class="sh2 lt tc">Agrónomos <em>Farmex</em><br>a tu lado en cada etapa</h2>
-    <p class="ssub c lt" style="margin-top:12px;">Especialistas certificados en palta Hass y arándano. Visitas de campo, monitoreo digital y soporte continuo para reducir las pérdidas evitables del 20–30%.</p>
-  </div>
-  <div class="ag-g">
-    <div class="ag-c">
-      <div class="ag-av">JQ</div>
-      <div class="ag-n">Ing. Juan Quispe</div>
-      <div class="ag-e">Especialista Palta Hass</div>
-      <div class="ag-r">📍 La Libertad · Virú, Chao</div>
-      <div class="ag-x">✓ 12 años en campo</div>
-    </div>
-    <div class="ag-c">
-      <div class="ag-av">MR</div>
-      <div class="ag-n">Ing. María Ramos</div>
-      <div class="ag-e">Especialista Arándano</div>
-      <div class="ag-r">📍 Ica · Chincha, Pisco</div>
-      <div class="ag-x">✓ 8 años en campo</div>
-    </div>
-    <div class="ag-c">
-      <div class="ag-av">CP</div>
-      <div class="ag-n">Ing. Carlos Pérez</div>
-      <div class="ag-e">Especialista Palta</div>
-      <div class="ag-r">📍 Piura · Tambogrande</div>
-      <div class="ag-x">✓ 15 años en campo</div>
-    </div>
-  </div>
-</section>
+  <!-- MAIN -->
+  <div class="main">
+    <header class="topbar">
+      <div>
+        <div class="tb-h1" id="tb-title">Dashboard</div>
+        <div class="tb-sub" id="tb-sub">Cargando...</div>
+      </div>
+      <div class="tb-r">
+        <div class="tb-date">📅 13 Mayo 2026</div>
+        <div class="tb-bell">🔔<div class="bell-dot"></div></div>
+      </div>
+    </header>
 
-<!-- MARKETPLACE -->
-<section id="marketplace">
-  <div style="max-width:600px;margin-bottom:52px;">
-    <span class="stag lt">Marketplace Agrícola</span>
-    <h2 class="sh2 lt">Conectamos tu cosecha<br>con el <em>mundo</em></h2>
-    <p class="ssub lt" style="margin-top:12px;">Productores verificados con perfil completo: foto real del cultivo, ubicación, clima, certificaciones e historial de producción. Compradores de todo el mundo los encuentran y contactan directamente.</p>
+    <!-- Screen container — filled dynamically by app.js -->
+    <div class="content" id="app-content"></div>
   </div>
-  <div class="mp-g">
-    <div class="mp-c">
-      <div class="mp-iw">
-        <img class="mp-img" src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=600&q=80" alt="Palta Hass La Libertad">
-        <div class="mp-b">🥑 Palta Hass</div>
-      </div>
-      <div class="mp-body">
-        <div class="mp-name">Finca García · La Libertad</div>
-        <ul class="mp-dl">
-          <li><strong>Ubicación:</strong> Virú, La Libertad · Valle costero</li>
-          <li><strong>Clima:</strong> 18–24°C · Riego tecnificado · Baja nubosidad</li>
-          <li><strong>Hectáreas:</strong> 32 ha propias con título registrado</li>
-          <li><strong>Disponible:</strong> ~112 TM · Ago–Oct 2026 · Cal. 12–18</li>
-          <li><strong>Puerto:</strong> FOB Paita · Exportación directa</li>
-          <li><strong>Certificaciones:</strong> Global G.A.P. · SENASA · Trazabilidad</li>
-        </ul>
-        <div class="mp-sc">⭐ Score Farmex: <strong>760 / 1000</strong> · Muy Bueno</div>
-        <button class="mp-cta">Ver vitrina del productor →</button>
-      </div>
-    </div>
-    <div class="mp-c">
-      <div class="mp-iw">
-        <img class="mp-img" src="https://images.unsplash.com/photo-1425007680966-1ac71ad1b87d?w=600&q=80" alt="Arándano Ica">
-        <div class="mp-b">🫐 Arándano</div>
-      </div>
-      <div class="mp-body">
-        <div class="mp-name">Finca Del Valle · Ica</div>
-        <ul class="mp-dl">
-          <li><strong>Ubicación:</strong> Chincha, Ica · Costa árida</li>
-          <li><strong>Clima:</strong> 20–28°C · Alta luminosidad · Sin heladas</li>
-          <li><strong>Hectáreas:</strong> 18 ha bajo malla antiinsecto</li>
-          <li><strong>Disponible:</strong> ~45 TM · Sep–Nov 2026 · Cal. 14–18mm</li>
-          <li><strong>Variedad:</strong> Biloxi · Alta productividad · Brix 13–15</li>
-          <li><strong>Certificaciones:</strong> Global G.A.P. · Rainforest Alliance</li>
-        </ul>
-        <div class="mp-sc">⭐ Score Farmex: <strong>810 / 1000</strong> · Excelente</div>
-        <button class="mp-cta">Ver vitrina del productor →</button>
-      </div>
-    </div>
-    <div class="mp-c">
-      <div class="mp-iw">
-        <img class="mp-img" src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?w=600&q=80" alt="Palta Piura">
-        <div class="mp-b">🥑 Palta</div>
-      </div>
-      <div class="mp-body">
-        <div class="mp-name">Finca Morales · Piura</div>
-        <ul class="mp-dl">
-          <li><strong>Ubicación:</strong> Tambogrande, Piura · Costa norte</li>
-          <li><strong>Clima:</strong> 24–32°C · Sistema antihelada · Riego por goteo</li>
-          <li><strong>Hectáreas:</strong> 25 ha productivas con infraestructura propia</li>
-          <li><strong>Disponible:</strong> ~75 TM · Jul–Sep 2026</li>
-          <li><strong>Puerto:</strong> FOB Paita · Exportación directa</li>
-          <li><strong>Certificaciones:</strong> SENASA · Producción Orgánica certificada</li>
-        </ul>
-        <div class="mp-sc">⭐ Score Farmex: <strong>740 / 1000</strong> · Bueno</div>
-        <button class="mp-cta">Ver vitrina del productor →</button>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- VITRINA CTA -->
-<section id="vit">
-  <div class="vit-in">
-    <div>
-      <span class="stag lt">Tu Vitrina del Productor</span>
-      <h2 class="vit-h2">Tu finca merece ser<br>conocida por el <em>mundo</em></h2>
-      <p class="vit-p">Crea tu perfil verificado por Farmex y muéstraselo a compradores internacionales. Tu historial, certificaciones y oferta disponible en un solo link que compartes por WhatsApp en segundos.</p>
-      <ul class="vit-ul">
-        <li>Perfil verificado con Score Farmex — más credibilidad ante compradores</li>
-        <li>Foto real de tu finca, ubicación, clima y características del cultivo</li>
-        <li>Oferta disponible para la campaña actual con volúmenes y calibres</li>
-        <li>Historial de producción de los últimos 5 años</li>
-        <li>Link único para compartir por WhatsApp, email o código QR</li>
-      </ul>
-      <a href="#contacto" class="btn-p">Crear mi Vitrina gratis →</a>
-    </div>
-    <div class="vc-card">
-      <div class="vc-bdg">✓ Farmex Verified Producer</div>
-      <div class="vc-fn">Raúl García Mendoza</div>
-      <div class="vc-s">Productor de Palta Hass · Virú, La Libertad · 32 hectáreas</div>
-      <div class="vc-sc">
-        <div class="vc-sn">760</div>
-        <div><div class="vc-sl">Score Farmex</div><div class="vc-sc-cat">Muy Bueno · Top 15%</div></div>
-      </div>
-      <div class="vc-tags">
-        <span class="vc-tg">✓ Global G.A.P.</span>
-        <span class="vc-tg">✓ SENASA</span>
-        <span class="vc-tg">✓ Riego tecnificado</span>
-        <span class="vc-tg">📡 Monitoreo satelital</span>
-        <span class="vc-tg">🥑 ~112 TM disponibles</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACTO -->
-<section id="contacto">
-  <h2 class="ct-h2">¿Listo para hacer crecer<br><em>tu finca?</em></h2>
-  <p class="ct-p">Únete al piloto de Farmex Capital. Seleccionamos productores de palta y arándano en la costa del Perú para la primera campaña 2026.</p>
-  <div class="ct-form">
-    <input class="ct-in" type="text" placeholder="Tu nombre completo">
-    <input class="ct-in" type="text" placeholder="WhatsApp + región">
-    <button class="ct-btn">Quiero participar →</button>
-  </div>
-  <div class="ct-note">Solo productores con 10+ hectáreas de palta o arándano en la costa del Perú.</div>
-</section>
-
-<footer>
-  <div class="ft-in">
-    <div>
-      <div class="ft-bn">Farmex <span>Capital</span></div>
-      <div class="ft-bs">El Portal de Productores · Perú 2026</div>
-      <div class="ft-bd">La infraestructura financiera para pequeños y medianos agroexportadores de la costa del Perú. Convertimos ciclos agrícolas en flujo de caja predecible.</div>
-    </div>
-    <div class="ft-lk">
-      <h4>Servicios</h4>
-      <ul>
-        <li><a href="#servicios">Financiamiento</a></li>
-        <li><a href="#clima">Data Agrícola</a></li>
-        <li><a href="#scoring">Scoring IA</a></li>
-        <li><a href="#asistencia">Asistencia Técnica</a></li>
-        <li><a href="#marketplace">Marketplace</a></li>
-      </ul>
-    </div>
-    <div class="ft-lk">
-      <h4>Regiones</h4>
-      <ul>
-        <li><a href="#clima">La Libertad</a></li>
-        <li><a href="#clima">Ica</a></li>
-        <li><a href="#clima">Piura</a></li>
-        <li><a href="#clima">Lambayeque</a></li>
-        <li><a href="#clima">Ancash</a></li>
-      </ul>
-    </div>
-    <div class="ft-lk">
-      <h4>Contacto</h4>
-      <ul>
-        <li><a href="#contacto">Piloto 2026</a></li>
-        <li><a href="#contacto">Productores</a></li>
-        <li><a href="#contacto">Inversionistas</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="ft-bot">
-    <div class="ft-copy">© 2026 Farmex Capital S.A.C. — Perú · Todos los derechos reservados</div>
-    <div class="ft-reg">AgriFintech · Costa del Perú</div>
-  </div>
-</footer>
-
-<script>
-window.addEventListener('scroll',()=>{
-  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20);
-},{passive:true});
-</script>
+  <!-- App entry point (ES module) -->
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>
