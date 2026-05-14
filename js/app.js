@@ -1,3 +1,4 @@
+import * as login      from './screens/login.js';
 import * as encuesta   from './screens/encuesta.js';
 import * as dashboard  from './screens/dashboard.js';
 import * as servicios  from './screens/servicios.js';
@@ -8,9 +9,10 @@ import * as scoring    from './screens/scoring.js';
 import * as clima      from './screens/clima.js';
 import * as vitrina    from './screens/vitrina.js';
 
-const SCREENS = { encuesta, dashboard, servicios, parcelas, creditos, mercado, scoring, clima, vitrina };
+const SCREENS = { login, encuesta, dashboard, servicios, parcelas, creditos, mercado, scoring, clima, vitrina };
 
 const TITLES = {
+  login:     ['Acceder al Portal', 'Ingresa o regístrate para continuar'],
   encuesta:  ['Mi Perfil', 'Raúl García Mendoza · La Libertad · 32 ha · Palta Hass'],
   dashboard: ['Mi Finca',              'Buenos días, Raúl — Campaña Palta Hass 2026 en curso'],
   servicios: ['Nuestros Servicios',    'Quiénes somos y qué ofrecemos en Farmex Capital'],
@@ -61,12 +63,41 @@ function goScreen(id) {
   document.getElementById('tb-sub').textContent   = sub;
 }
 
-/* Expose globally so inline data-go attrs can call it */
+/* Expose globally */
 window.goScreen = goScreen;
 
-/* Boot */
+/* Show/hide sidebar based on auth */
+function setSidebarVisibility(visible) {
+  const sb = document.querySelector('.sb');
+  if (sb) sb.style.display = visible ? 'flex' : 'none';
+  const topbar = document.querySelector('.topbar');
+  if (topbar) topbar.style.display = visible ? 'flex' : 'none';
+}
+
+/* Boot — check auth, show login or dashboard */
 mountScreens();
-goScreen('dashboard');
+
+import('../lib/supabase.js').then(({ auth }) => {
+  if (auth.isLoggedIn()) {
+    setSidebarVisibility(true);
+    goScreen('dashboard');
+  } else {
+    setSidebarVisibility(false);
+    goScreen('login');
+    // After login, restore sidebar
+    const observer = new MutationObserver(() => {
+      if (auth.isLoggedIn()) {
+        setSidebarVisibility(true);
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.body, { subtree: true, childList: true });
+  }
+}).catch(() => {
+  // Supabase not configured yet — show dashboard directly (demo mode)
+  setSidebarVisibility(true);
+  goScreen('dashboard');
+});
 
 /* Wire sidebar buttons */
 document.querySelectorAll('.ni[data-screen]').forEach(btn => {
